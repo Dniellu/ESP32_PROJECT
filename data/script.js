@@ -101,7 +101,7 @@ function checkWeather() {
 }
 
 let idleTime = 0;
-let idleLimit = 5; // 秒數
+let idleLimit = 20; // 秒數
 let idleInterval;
 let isIdle = false;
 
