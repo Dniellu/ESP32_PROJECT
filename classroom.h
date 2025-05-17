@@ -1,5 +1,4 @@
 #include <map>
-#include <Arduino.h>
 
 // 教室名稱對應角度（單位:度）
 std::map<String, int> classroomAngles = {

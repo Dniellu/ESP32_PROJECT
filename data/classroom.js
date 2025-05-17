@@ -148,7 +148,7 @@ function showImage() {
   document.getElementById("result").style.display = "block";
 
   // 傳送選取資料到 ESP32
-  fetch(`http://192.168.50.245/rotate?classroom=${encodeURIComponent(classroom)}`)
+  fetch(`http://192.168.50.232/rotate?classroom=${encodeURIComponent(classroom)}`)
     .then(res => res.text())
     .then(msg => console.log("ESP32 回應：", msg))
     .catch(err => console.error("傳送失敗：", err));
