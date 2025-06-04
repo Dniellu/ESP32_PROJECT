@@ -230,3 +230,24 @@ function toggleOtherFunctions() {
   const other = document.getElementById("other-functions");
   other.style.display = other.style.display === "none" ? "flex" : "none";
 }
+
+// 切換到「其他功能」
+function showOtherFunctions() {
+  document.getElementById("main-buttons").style.display = "none";
+  document.getElementById("secondary-buttons").style.display = "flex";
+  document.getElementById("back-button").style.display = "block";
+}
+
+// 返回上一層（首頁）
+function goBack() {
+  document.getElementById("secondary-buttons").style.display = "none";
+  document.getElementById("back-button").style.display = "none";
+  document.getElementById("main-buttons").style.display = "flex";
+}
+
+// 顯示教室導引
+function openClassroomGuide() {
+  document.getElementById("main-buttons").style.display = "none";
+  document.getElementById("classroomBox").style.display = "block";
+}
+
