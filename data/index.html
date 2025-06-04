@@ -23,21 +23,21 @@
       </div>
     </header>
 
-    <!-- 主標題 -->
-    <h1 id="homepage" data-i18n="description">智慧路牌系統</h1>
-
     <!-- 顯示目前時間 -->
-    <div id="time-display">
-      <span id="time">--:--:--</span>
+    <div id="time-display" class="large-clock">
+  <span id="time">--:--:--</span>
     </div>
 
     <!-- 功能按鈕區 -->
     <div class="button-container">
+      <button onclick="openClassroomGuide()">🏫 教室導引</button>
+      <button onclick="toggleOtherFunctions()">🔧 其他功能</button>
+    </div>
+    <div id="other-functions" class="button-container" style="display: none;">
       <button id="weather" onclick="openWeather()" data-i18n="weather">🌤 天氣查詢</button>
       <button id="map" onclick="openMap()" data-i18n="map">🗺 地圖導航</button>
-      <button onclick="openClassroomGuide()">🏫 教室導引</button>
-      <button id="services" onclick="otherServices()" data-i18n="services">🔧 其他服務</button>
     </div>
+
 
     <!-- 天氣查詢區塊 -->
     <div class="weather-container">

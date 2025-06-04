@@ -5,6 +5,8 @@ body {
     background-color: #f0f8ff;       /* 淺藍背景 */
     margin: 0;                       /* 取消預設外距 */
     padding: 0;                      /* 取消預設內距 */
+    background: url('images/background.png') no-repeat center center fixed;
+    background-size: cover;
 }
 
 h1 {
@@ -477,4 +479,21 @@ select {
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
+}
+/* 放大時間字體 */
+.large-clock #time {
+  font-size: 80px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  display: block;
+  margin-top: 20px;
+}
+
+/* 按鈕容器改成 flex 排列 */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 40px;
 }

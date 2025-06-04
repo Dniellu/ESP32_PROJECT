@@ -224,3 +224,9 @@ function otherServices() {
   function closeMenu() {
     document.getElementById('menu').style.display = 'none';
   }
+
+  // 切換顯示其他功能
+function toggleOtherFunctions() {
+  const other = document.getElementById("other-functions");
+  other.style.display = other.style.display === "none" ? "flex" : "none";
+}
