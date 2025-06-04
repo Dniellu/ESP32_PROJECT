@@ -1,133 +1,176 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="title">智慧路牌</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="title">智慧路牌</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.json" />
 </head>
-<body>
+
+<body id="mode-controller" data-mode="guide">
+  <div id="guide-mode">
     <header>
-        <div class="language-container">
-            <select id="language-selector">
-                <option value="en">English</option>
-                <option value="zh">中文</option>
-            </select>
-        </div>
+      <div class="language-container">
+        <select id="language-selector">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+        </select>
+      </div>
     </header>
-    <!-- 主畫面(B) -->
-    <h1 id="description">智慧路牌系統</h1>
+
+    <h1 id="homepage" data-i18n="description">智慧路牌系統</h1>
+
+    <!-- 顯示中原標準時間 -->
+    <div id="time-display">
+      <span id="time">--:--:--</span>
+    </div>
+
     <div class="button-container">
-        <button id="weather" onclick="checkWeather()">🌤 天氣查詢</button>
-        <button id="map" onclick="openMap()">🗺 地圖導航</button>
-        <button id="classroomGuide" onclick="toggleClassroomGuide()">🏫 教室導引</button>
-        <button id="services" onclick="otherServices()">🔧 其他服務</button>
+      <button id="weather" onclick="openWeather()" data-i18n="weather">🌤 天氣查詢</button>
+      <button id="map" onclick="openMap()" data-i18n="map">🗺 地圖導航</button>
+      <button onclick="openClassroomGuide()">🏫 教室導引</button>
+      <button id="services" onclick="otherServices()" data-i18n="services">🔧 其他服務</button>
     </div>
-    <!--天氣選單(B)-->
+
     <div class="weather-container">
-        <div id="weatherOptions" style="display: none;">
-            <label for="city">選擇縣市:</label>
-            <select id="city">
-                <option value="">請選擇縣市</option>
-                <option value="Taipei">台北市</option>
-                <option value="New Taipei">新北市</option>
-                <option value="Taoyuan">桃園市</option>
-                <option value="Taichung">台中市</option>
-                <option value="Tainan">台南市</option>
-                <option value="Kaohsiung">高雄市</option>
-                <option value="Keelung">基隆市</option>
-                <option value="Hsinchu">新竹市</option>
-                <option value="Hsinchu County">新竹縣</option>
-                <option value="Miaoli County">苗栗縣</option>
-                <option value="Changhua County">彰化縣</option>
-                <option value="Nantou County">南投縣</option>
-                <option value="Yunlin County">雲林縣</option>
-                <option value="Chiayi City">嘉義市</option>
-                <option value="Chiayi County">嘉義縣</option>
-                <option value="Pingtung County">屏東縣</option>
-                <option value="Yilan County">宜蘭縣</option>
-                <option value="Hualien County">花蓮縣</option>
-                <option value="Taitung County">台東縣</option>
-                <option value="Penghu County">澎湖縣</option>
-                <option value="Kinmen County">金門縣</option>
-                <option value="Lienchiang County">連江縣</option>
-            </select>
-        
-            <label for="district" id="districtLabel" style="display: none;">選擇行政區:</label>
-            <select id="district" style="display: none;"></select>
-        
-            <button id="submitWeather">🔍 查詢天氣</button>
-            <button id="closeWeather">❌ 關閉天氣查詢功能</button>
+      <div id="weatherBox" class="weather-form" style="display: none;">
+        <h3>🔍 天氣查詢</h3>
+        <label for="city">選擇縣市:</label>
+        <select id="city">
+          <option value="">請選擇縣市</option>
+        </select>
+        <button id="submitWeather">📡 查詢天氣</button>
+        <button id="closeWeather" class="close-btn">❌ 關閉查詢</button>
+      </div>
+      <div id="output" class="weather-output"></div>
+    </div>
+
+    <div id="classroomBox" class="container" style="display: none;">
+      <select id="area" onchange="updateClassrooms()">
+        <option value="">請選擇區域</option>
+        <option value="cheng">誠</option>
+        <option value="zheng">正</option>
+        <option value="qin">勤</option>
+        <option value="pu">樸</option>
+      </select>
+      <select id="floor" onchange="updateClassrooms()">
+        <option value="">請選擇樓層</option>
+      </select>
+      <select id="classroom">
+        <option value="">請選擇教室</option>
+      </select>
+      <button onclick="showImage()">顯示圖片</button>
+      <div id="weatherDisplay">
+        <div id="result" style="display: none;">
+          <img id="classroom-image" src="" alt="教室圖片" />
         </div>
-        
-        <div id="output"></div>
+      </div>
+      <button onclick="goHome()">⬅️ 返回首頁</button>
     </div>
 
-    
-
-    <!-- 小助手按鈕(A) -->
     <div id="ai-assistant" class="assistant-button">
-        <button onclick="showMenu()">小助手</button>
+      <button onclick="showMenu()">小助手</button>
     </div>
 
-    <!-- 選單(B) -->
     <div id="menu" class="assistant-menu">
-        <button onclick="showAnswer('weather')">🌦 如何查詢天氣？</button>
-        <button onclick="showAnswer('map')">🗺 如何使用地圖導航？</button>
-        <button onclick="showAnswer('ubike')">🚲 如何查詢 YouBike 站點？</button>
-        <button onclick="showAnswer('campus')">🏫 如何使用校園導覽？</button>
-        <button onclick="showAnswer('metro')">🚇 如何查詢捷運站位置？</button>
-        <button onclick="closeMenu()">❌ 關閉選單</button> 
+      <button onclick="showAnswer('weather')">🌦 如何查詢天氣？</button>
+      <button onclick="showAnswer('youbike')">🚴‍♀️ 如何查詢附近的 YouBike 站點？</button>
+      <button onclick="showAnswer('map')">🧭 如何使用地圖導航？</button>
+      <button onclick="showAnswer('services')">🔧 其他服務有哪些功能？</button>
+      <button onclick="showAnswer('foodWheel')">🍽 美食轉盤要怎麼使用？</button>
+      <button onclick="showAnswer('sosMode')">🚨 如何開啟緊急模式？</button>
+      <button onclick="showAnswer('howToStart')">🖱 首次使用該從哪裡開始？</button>
+      <button onclick="showAnswer('returnHome')">🏠 使用後如何返回主畫面？</button>
+      <button onclick="showAnswer('soundOff')">🔇 為什麼沒有聽到警報聲？</button>
+      <button onclick="showAnswer('foodWheelCriteria')">🍴 美食轉盤是如何決定推薦餐廳的？</button>  
+      <button onclick="closeMenu()">❌ 關閉選單</button>    
     </div>
 
     <div id="answer" class="assistant-answer">
-        <p id="answer-text"></p>
-        <button onclick="closeAnswer()">關閉</button>
-    </div>
-
-    <script src="scripts.js"></script>
-
-    <div id="output"></div>
-
-    <script>
-        if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("service-worker.js")
-    .then(() => console.log("Service Worker 註冊成功"))
-    .catch((error) => console.log("Service Worker 註冊失敗:", error));
-}
-    </script>
-    <!--教室導引選單(B)-->
-    <div class="container">
-        <!-- 選單部分 -->
-        <div id="weatherOptions">
-            <select id="area" onchange="updateClassrooms()">
-                <option value="">請選擇區域</option>
-                <option value="cheng">誠</option>
-                <option value="zheng">正</option>
-                <option value="qin">勤</option>
-                <option value="pu">樸</option>
-            </select>
-
-            <select id="floor" onchange="updateClassrooms()">
-                <option value="">請選擇樓層</option>
-            </select>
-
-            <select id="classroom">
-                <option value="">請選擇教室</option>
-            </select>
-
-            <button id="submitWeather" onclick="showImage()">顯示圖片</button>
-        </div>
-
-        <!-- 顯示圖片部分 -->
-        <div id="weatherDisplay">
-            <div id="result" style="display: none;">
-                <img id="classroom-image" src="" alt="教室圖片">
-            </div>
-        </div>
+      <p id="answer-text"></p>
+      <button onclick="closeAnswer()">關閉</button>
     </div>
 
     <script src="script.js"></script>
+    <script src="otherfunction.js"></script>
+    <script src="map.js"></script>
+    <script src="classroom.js"></script>
+    <script src="utils.js"></script>
+    <script>
+      function goHome() {
+        document.getElementById("dm-container").style.display = "block";
+        document.getElementById("output").innerHTML = "";
+        document.getElementById("weatherBox").style.display = "none";
+        document.getElementById("classroomBox").style.display = "none";
+        document.getElementById("result").style.display = "none";
+      }
+
+      function openWeather() {
+        closeAllFeatureBoxes();
+        document.getElementById("dm-container").style.display = "none";
+        document.getElementById("weatherBox").style.display = "block";
+      }
+
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js")
+          .then(() => console.log("Service Worker 註冊成功"))
+          .catch((error) => console.log("Service Worker 註冊失敗:", error));
+      }
+
+      async function loadLanguage(lang) {
+        const res = await fetch('languages.json');
+        const data = await res.json();
+        const translations = data[lang];
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (translations[key]) {
+            el.textContent = translations[key];
+          }
+        });
+      }
+
+      document.getElementById('language-selector').addEventListener('change', e => {
+        loadLanguage(e.target.value);
+      });
+
+      loadLanguage('zh');
+
+      function toggleClassroomGuide() {
+        const box = document.getElementById("classroomBox");
+        box.style.display = box.style.display === "none" ? "block" : "none";
+      }
+
+      // 顯示時間
+      function updateTime() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        document.getElementById("time").textContent = `${hours}:${minutes}:${seconds}`;
+      }
+      setInterval(updateTime, 1000);
+      updateTime();
+    </script>
+    <div id="serviceContainer"></div>
+
+    <!-- 閒置待機投影片 -->
+    <div id="screensaver" style="display: none;">
+      <div class="slideshow">   
+        <img src="images/防災避難流程.jpg" class="slide" />
+        <img src="images/逃生避難圖.jpg" class="slide" />
+        <img src="images/師大連結學校.jpg" class="slide" />
+        <img src="images/師大百年.jpg" class="slide" />
+        <img src="images/消防安全.jpg" class="slide" />
+      </div>
+    </div>
+  </div>
+
+  <div id="imageModal" class="modal" onclick="closeModal()" style="display:none;">
+  <span class="modal-close">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
 </body>
+
 </html>
