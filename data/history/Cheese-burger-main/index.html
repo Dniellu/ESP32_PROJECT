@@ -5,12 +5,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="title">智慧路牌</title>
+  <!-- 引入 CSS 與 manifest -->
   <link rel="stylesheet" href="styles.css" />
   <link rel="manifest" href="manifest.json" />
 </head>
 
 <body id="mode-controller" data-mode="guide">
   <div id="guide-mode">
+
+    <!-- 頁首：語言切換 -->
     <header>
       <div class="language-container">
         <select id="language-selector">
@@ -20,20 +23,23 @@
       </div>
     </header>
 
-    <h1 id="homepage" data-i18n="description">智慧路牌系統</h1>
-
-    <!-- 顯示中原標準時間 -->
-    <div id="time-display">
-      <span id="time">--:--:--</span>
+    <!-- 顯示目前時間 -->
+    <div id="time-display" class="large-clock">
+  <span id="time">--:--:--</span>
     </div>
 
+    <!-- 功能按鈕區 -->
     <div class="button-container">
+      <button onclick="openClassroomGuide()">🏫 教室導引</button>
+      <button onclick="toggleOtherFunctions()">🔧 其他功能</button>
+    </div>
+    <div id="other-functions" class="button-container" style="display: none;">
       <button id="weather" onclick="openWeather()" data-i18n="weather">🌤 天氣查詢</button>
       <button id="map" onclick="openMap()" data-i18n="map">🗺 地圖導航</button>
-      <button onclick="openClassroomGuide()">🏫 教室導引</button>
-      <button id="services" onclick="otherServices()" data-i18n="services">🔧 其他服務</button>
     </div>
 
+
+    <!-- 天氣查詢區塊 -->
     <div class="weather-container">
       <div id="weatherBox" class="weather-form" style="display: none;">
         <h3>🔍 天氣查詢</h3>
@@ -47,6 +53,7 @@
       <div id="output" class="weather-output"></div>
     </div>
 
+    <!-- 教室導引區塊 -->
     <div id="classroomBox" class="container" style="display: none;">
       <select id="area" onchange="updateClassrooms()">
         <option value="">請選擇區域</option>
@@ -62,18 +69,22 @@
         <option value="">請選擇教室</option>
       </select>
       <button onclick="showImage()">顯示圖片</button>
+
       <div id="weatherDisplay">
         <div id="result" style="display: none;">
           <img id="classroom-image" src="" alt="教室圖片" />
         </div>
       </div>
+
       <button onclick="goHome()">⬅️ 返回首頁</button>
     </div>
 
+    <!-- 小助手按鈕 -->
     <div id="ai-assistant" class="assistant-button">
       <button onclick="showMenu()">小助手</button>
     </div>
 
+    <!-- 小助手功能選單 -->
     <div id="menu" class="assistant-menu">
       <button onclick="showAnswer('weather')">🌦 如何查詢天氣？</button>
       <button onclick="showAnswer('youbike')">🚴‍♀️ 如何查詢附近的 YouBike 站點？</button>
@@ -88,17 +99,22 @@
       <button onclick="closeMenu()">❌ 關閉選單</button>    
     </div>
 
+    <!-- 小助手答覆區 -->
     <div id="answer" class="assistant-answer">
       <p id="answer-text"></p>
       <button onclick="closeAnswer()">關閉</button>
     </div>
 
-    <script src="script.js"></script>
+    <!-- 引入 JavaScript -->
+    <script src="wheather.js"></script>
+    <script src="ad.js"></script>
     <script src="otherfunction.js"></script>
     <script src="map.js"></script>
     <script src="classroom.js"></script>
     <script src="utils.js"></script>
+
     <script>
+      // 返回首頁功能
       function goHome() {
         document.getElementById("dm-container").style.display = "block";
         document.getElementById("output").innerHTML = "";
@@ -107,18 +123,21 @@
         document.getElementById("result").style.display = "none";
       }
 
+      // 顯示天氣查詢區塊
       function openWeather() {
         closeAllFeatureBoxes();
         document.getElementById("dm-container").style.display = "none";
         document.getElementById("weatherBox").style.display = "block";
       }
 
+      // 註冊 PWA 的 Service Worker
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("service-worker.js")
           .then(() => console.log("Service Worker 註冊成功"))
           .catch((error) => console.log("Service Worker 註冊失敗:", error));
       }
 
+      // 語言載入
       async function loadLanguage(lang) {
         const res = await fetch('languages.json');
         const data = await res.json();
@@ -135,14 +154,16 @@
         loadLanguage(e.target.value);
       });
 
+      // 預設語言為中文
       loadLanguage('zh');
 
+      // 教室導引切換
       function toggleClassroomGuide() {
         const box = document.getElementById("classroomBox");
         box.style.display = box.style.display === "none" ? "block" : "none";
       }
 
-      // 顯示時間
+      // 即時更新時間
       function updateTime() {
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, '0');
@@ -153,9 +174,11 @@
       setInterval(updateTime, 1000);
       updateTime();
     </script>
+
+    <!-- 動態服務區容器 -->
     <div id="serviceContainer"></div>
 
-    <!-- 閒置待機投影片 -->
+    <!-- 閒置畫面：投影片播放區 -->
     <div id="screensaver" style="display: none;">
       <div class="slideshow">   
         <img src="images/防災避難流程.jpg" class="slide" />
@@ -167,10 +190,11 @@
     </div>
   </div>
 
+  <!-- 圖片放大顯示 Modal -->
   <div id="imageModal" class="modal" onclick="closeModal()" style="display:none;">
-  <span class="modal-close">&times;</span>
-  <img class="modal-content" id="modalImage">
-</div>
-</body>
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="modalImage">
+  </div>
 
+</body>
 </html>
