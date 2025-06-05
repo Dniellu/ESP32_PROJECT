@@ -34,24 +34,6 @@ function closeAllFeatureBoxes() {
   if (output) output.innerHTML = "";
 }
 
-// 主選單：地圖導航
-function openMap() {
-  closeAllFeatureBoxes();
-  const dmContainer = document.getElementById("dm-container");
-  if (dmContainer) dmContainer.style.display = "none"; // 隱藏 DM
-
-  const output = document.getElementById("output");
-  if (output) {
-    output.innerHTML = `
-      <div class='map-options'>
-        <button onclick="findFood()">🍜 美食地圖</button>
-        <button onclick="findLocations()">🏫 校區介紹</button>
-        <button onclick="findNearestBUS()">🚏 公車站牌位置</button>
-        <button onclick="findNearestMRT()">🚇 捷運站位置</button>
-        <button onclick="findYoubike()">🚲 YouBike 站點查詢</button>
-      </div>`;
-  }
-}
 
 // 美食地圖資料
 const foodSpots = [
@@ -89,34 +71,9 @@ function findFood() {
       `;
       output.appendChild(el);
     });
-
-    // 返回按鈕
-    const backButton = document.createElement("button");
-    backButton.textContent = "⬅️ 返回";
-    backButton.onclick = openMap;
-    backButton.style.marginTop = "20px";
-    output.appendChild(backButton);
   }
 }
 
-
-// 校區介紹資料
-function findLocations() {
-  const output = document.getElementById("output");
-  if (output) {
-    output.innerHTML = `
-      <div class='campus-options'>
-        <button onclick="showCampusInfo('和平校區')">🏫 和平校區</button>
-        <button onclick="showCampusInfo('圖書館校區')">📚 圖書館校區</button>
-        <button onclick="showCampusInfo('公館校區')">🏢 公館校區</button>
-        <button onclick="showCampusInfo('林口校區')">🌳 林口校區</button>
-      </div>
-      <div style="margin-top: 20px;">
-        <button onclick="openMap()">⬅️ 返回</button>
-      </div>
-    `;
-  }
-}
 
 function showCampusInfo(name) {
   const data = {
@@ -148,7 +105,7 @@ const busStations = [
 ];
 
 // 顯示附近公車站牌
-function findNearestBusStation() {
+function findNearestBUS() {
   const userLat = fixedLat;
   const userLng = fixedLng;
 
@@ -212,12 +169,6 @@ function findNearestMRT() {
       `;
       output.appendChild(el);
     });
-
-    const backButton = document.createElement("button");
-    backButton.textContent = "⬅️ 返回";
-    backButton.onclick = openMap;
-    backButton.style.marginTop = "20px";
-    output.appendChild(backButton);
   }
 }
 
@@ -253,11 +204,17 @@ function findYoubike() {
       `;
       output.appendChild(el);
     });
-
-    const backButton = document.createElement("button");
-    backButton.textContent = "⬅️ 返回";
-    backButton.onclick = openMap;
-    backButton.style.marginTop = "20px";
-    output.appendChild(backButton);
   }
+}
+
+function showCampusMenu() {
+  document.getElementById("main-buttons").style.display = "none";
+  document.getElementById("campus-buttons").style.display = "flex";
+  document.getElementById("back-button").style.display = "block";
+}
+
+function backToMain() {
+  document.getElementById("campus-buttons").style.display = "none";
+  document.getElementById("main-buttons").style.display = "flex";
+  document.getElementById("back-button").style.display = "none";
 }

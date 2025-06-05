@@ -35,25 +35,32 @@
     </div>
 
    <!-- 第二層按鈕區（其他功能） -->
-  <div id="secondary-buttons" class="button-container" style="display: none;">
-  <button onclick="openWeather()">🌤 天氣查詢</button>
-  <button onclick="openMap()">🗺 美食地圖</button>
-  <button onclick="openCampusInfo()">🏫 校區介紹</button>
-  <button onclick="openBusInfo()">🚌 公車站牌</button>
-  <button onclick="openMRT()">🚇 捷運站</button>
-  <button onclick="openYoubike()">🚴 YouBike</button>
-  <button onclick="openFoodWheel()">🎲 美食轉盤</button>
-  <button onclick="openNews()">📰 最新資訊</button>
+<div id="secondary-buttons" class="button-container"style="display:none;">
+  <button onclick="findFood()">🍜 美食地圖</button>
+  <button onclick="showCampusMenu()">🏫 校區介紹</button>
+  <button onclick="findNearestBUS()">🚏 公車站牌位置</button>
+  <button onclick="findNearestMRT()">🚇 捷運站位置</button>
+  <button onclick="findYoubike()">🚲 YouBike 站點查詢</button>
+  <button id="weather" onclick="openWeather()" data-i18n="weather">🌤 天氣查詢</button>
 </div>
 
-<!-- 上一頁按鈕 -->
+<div id="back-button" style="text-align: right; margin: 10px; display: none;">
+  <button onclick="goBack()">⬅️ 上一頁</button>
+</div>
+   <!-- 第三層按鈕區（校區介紹） -->
+<div id="campus-buttons" class="button-container"style="display:none;">
+  <button onclick="showCampusInfo('和平校區')">🏫 和平校區</button>
+  <button onclick="showCampusInfo('圖書館校區')">📚 圖書館校區</button>
+  <button onclick="showCampusInfo('公館校區')">🏢 公館校區</button>
+  <button onclick="showCampusInfo('林口校區')">🌳 林口校區</button>
+</div>
+
 <div id="back-button" style="text-align: right; margin: 10px; display: none;">
   <button onclick="goBack()">⬅️ 上一頁</button>
 </div>
 
 
-
-    <!-- 天氣查詢區塊 -->
+   <!-- 第三層按鈕區（天氣查詢） -->
     <div class="weather-container">
       <div id="weatherBox" class="weather-form" style="display: none;">
         <h3>🔍 天氣查詢</h3>
@@ -67,7 +74,7 @@
       <div id="output" class="weather-output"></div>
     </div>
 
-    <!-- 教室導引區塊 -->
+   <!-- 第二層按鈕區（教室導引） -->
     <div id="classroomBox" class="container" style="display: none;">
       <select id="area" onchange="updateClassrooms()">
         <option value="">請選擇區域</option>
