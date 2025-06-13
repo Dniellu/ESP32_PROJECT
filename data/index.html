@@ -47,6 +47,7 @@
 <div id="back-button" style="text-align: right; margin: 10px; display: none;">
   <button onclick="goBack()">⬅️ 上一頁</button>
 </div>
+
    <!-- 第三層按鈕區（校區介紹） -->
 <div id="campus-buttons" class="button-container"style="display:none;">
   <button onclick="showCampusInfo('和平校區')">🏫 和平校區</button>
@@ -186,7 +187,7 @@
 
       // 即時更新時間
       function updateTime() {
-        const now = new Date();
+        const now = new Date(); 
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
