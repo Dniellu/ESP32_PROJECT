@@ -1,12 +1,13 @@
+// === 🌐 固定位置設定（師大和平校區附近） ===
 const fixedLat = 25.025170138217476;
 const fixedLng = 121.52791149741792;
 
-// 計算距離函式（保持不變）
+// === 📏 計算兩點距離（公里） ===
 function getDistance(lat1, lng1, lat2, lng2) {
   function toRad(deg) {
     return deg * Math.PI / 180;
   }
-  const R = 6371; // 地球半徑公里
+  const R = 6371;
   const dLat = toRad(lat2 - lat1);
   const dLng = toRad(lng2 - lng1);
   const a = Math.sin(dLat / 2) ** 2 +
@@ -16,26 +17,23 @@ function getDistance(lat1, lng1, lat2, lng2) {
   return R * c;
 }
 
-// 開啟 Google 地圖導航
+// === 🚀 開啟 Google 地圖導航連結 ===
 function openGoogleMaps(lat, lng) {
   const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
   window.open(url, '_blank');
 }
 
-// 關閉其他功能視窗
-const hide = id => {
-  const el = document.getElementById(id);
-  if (el) el.style.display = "none";
-};
-
+// === ❌ 關閉所有功能區塊（清空顯示） ===
 function closeAllFeatureBoxes() {
-  ["weatherBox", "classroomBox", "result", "dm-container"].forEach(hide);
+  ["weatherBox", "classroomBox", "result", "dm-container"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
   const output = document.getElementById("output");
   if (output) output.innerHTML = "";
 }
 
-
-// 美食地圖資料
+// === 🍜 美食地點資料 ===
 const foodSpots = [
   { name: "八方雲集（浦城店）", address: "台北市大安區和平東路一段182-3號", lat: 25.026391204355118, lng: 121.53000996795559 },
   { name: "師園鹹酥雞", address: "台北市大安區師大路39巷14號", lat: 25.024619139008344, lng: 121.5290237370823 },
@@ -44,11 +42,8 @@ const foodSpots = [
   { name: "牛老大牛肉麵", address: "台北市大安區龍泉街19-2號", lat: 25.025005532603156, lng: 121.5294764968212 }
 ];
 
-// 顯示美食地圖
+// === 🍱 顯示附近美食清單（距離排序） ===
 function findFood() {
-  const fixedLat = 25.025170138217476;
-  const fixedLng = 121.52791149741792;
-
   const output = document.getElementById("output");
   if (output) output.innerHTML = "<p>📍 正在載入美食資料...</p>";
 
@@ -59,7 +54,6 @@ function findFood() {
 
   if (output) {
     output.innerHTML = `<h2>🍜 附近的美食推薦</h2>`;
-
     sorted.forEach(spot => {
       const el = document.createElement("div");
       el.className = "station-card";
@@ -74,7 +68,7 @@ function findFood() {
   }
 }
 
-
+// === 🏫 校區資料與顯示 ===
 function showCampusInfo(name) {
   const data = {
     "和平校區": { address: "台北市大安區和平東路", lat: 25.0265, lng: 121.5270 },
@@ -95,7 +89,7 @@ function showCampusInfo(name) {
   }
 }
 
-// 公車站資料
+// === 🚏 公車站牌資料與顯示 ===
 const busStations = [
   { name: "師大(正門)", address: "台北市大安區和平東路一段", lat: 25.026561533860896, lng: 121.52787469175102 },
   { name: "師大(正門對面)", address: "台北市大安區和平東路一段", lat: 25.02687262224867, lng: 121.52781568315359 },
@@ -104,14 +98,10 @@ const busStations = [
   { name: "師大綜合大樓(八方雲集側)", address: "台北市大安區浦城街", lat: 25.026401128606224, lng: 121.52995072152815 }
 ];
 
-// 顯示附近公車站牌
 function findNearestBUS() {
-  const userLat = fixedLat;
-  const userLng = fixedLng;
-
   const sorted = busStations.map(st => ({
     ...st,
-    distance: getDistance(userLat, userLng, st.lat, st.lng)
+    distance: getDistance(fixedLat, fixedLng, st.lat, st.lng)
   })).sort((a, b) => a.distance - b.distance);
 
   const output = document.getElementById("output");
@@ -129,6 +119,7 @@ function findNearestBUS() {
       output.appendChild(el);
     });
 
+    // 加上返回按鈕
     const backButton = document.createElement("button");
     backButton.textContent = "⬅️ 返回";
     backButton.onclick = openMap;
@@ -137,22 +128,17 @@ function findNearestBUS() {
   }
 }
 
-
-// 捷運站資料
+// === 🚇 捷運站資料與顯示 ===
 const mrtStations = [
   { name: "古亭站", address: "台北市中正區羅斯福路", lat: 25.021829220678253, lng: 121.52814535783513 },
   { name: "公館站", address: "台北市中正區羅斯福路四段", lat: 25.01584965714648, lng: 121.5383549810451 },
   { name: "科技大樓站", address: "台北市大安區復興南路一段", lat: 25.025842138634974, lng: 121.5445329197595 }
 ];
 
-// 顯示附近捷運站
 function findNearestMRT() {
-  const userLat = fixedLat;
-  const userLng = fixedLng;
-
   const sorted = mrtStations.map(st => ({
     ...st,
-    distance: getDistance(userLat, userLng, st.lat, st.lng)
+    distance: getDistance(fixedLat, fixedLng, st.lat, st.lng)
   })).sort((a, b) => a.distance - b.distance);
 
   const output = document.getElementById("output");
@@ -172,7 +158,7 @@ function findNearestMRT() {
   }
 }
 
-// YouBike站點資料
+// === 🚲 YouBike 站點資料與顯示 ===
 const youbikeStations = [
   { name: "捷運科技大樓站(1號出口)", address: "台北市大安區復興南路一段390號", lat: 25.026998303233184, lng: 121.54384583812368 },
   { name: "捷運科技大樓站(2號出口)", address: "台北市大安區復興南路一段416號", lat: 25.027232250004858, lng: 121.54546946202438 },
@@ -180,14 +166,10 @@ const youbikeStations = [
   { name: "捷運公館站(1號出口)", address: "台北市中正區羅斯福路四段72號", lat: 25.015092872987378, lng: 121.53761166405995 }
 ];
 
-// 顯示附近YouBike站點
 function findYoubike() {
-  const userLat = fixedLat;
-  const userLng = fixedLng;
-
   const sorted = youbikeStations.map(st => ({
     ...st,
-    distance: getDistance(userLat, userLng, st.lat, st.lng)
+    distance: getDistance(fixedLat, fixedLng, st.lat, st.lng)
   })).sort((a, b) => a.distance - b.distance);
 
   const output = document.getElementById("output");
@@ -207,6 +189,7 @@ function findYoubike() {
   }
 }
 
+// === 🔄 主選單 / 校區選單 顯示控制 ===
 function showCampusMenu() {
   document.getElementById("main-buttons").style.display = "none";
   document.getElementById("campus-buttons").style.display = "flex";
