@@ -32,7 +32,8 @@ function openClassroomGuide() {
         <option value="">請選擇教室</option>
       </select>
 
-      <button onclick="showImage()">📸 顯示教室圖片</button>
+      <button class="show-image-btn" onclick="showImage()">📸 顯示教室圖片</button>
+
     </div>
 
     <div id="result" style="display:none; margin-top: 1em;">

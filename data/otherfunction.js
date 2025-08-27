@@ -209,13 +209,37 @@ function goBack() {
 
 // 教室導引功能
 function openClassroomGuide() {
+  // 關閉所有其他區塊
+  closeAllFeatureBoxes();
+
+  // 隱藏首頁按鈕與次層按鈕
   document.getElementById("main-buttons").style.display = "none";
+  document.getElementById("secondary-buttons").style.display = "none";
+  document.getElementById("back-button").style.display = "none";
+
+  // 顯示教室選單區塊
   document.getElementById("classroomBox").style.display = "block";
 }
 
+
 // 關閉所有功能區塊
 function closeAllFeatureBoxes() {
-  document.getElementById("classroomBox").style.display = "none";
-  document.getElementById("output").innerHTML = "";
-  document.getElementById("screensaver").style.display = "none";
+  const elementsToHide = [
+    "weatherBox",
+    "classroomBox",
+    "result",
+    "dm-container",
+    "secondary-buttons",
+    "campus-buttons",
+    "back-button",
+    "screensaver"
+  ];
+  elementsToHide.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
+
+  const output = document.getElementById("output");
+  if (output) output.innerHTML = "";
 }
+
