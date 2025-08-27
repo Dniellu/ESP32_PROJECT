@@ -1,0 +1,520 @@
+/* 基本設定 */
+body {
+    font-family: "Microsoft JhengHei", sans-serif;
+    text-align: center;
+    background-color: #fbf9f7;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 時間與日期 */
+.time-container {
+    margin-top: 20px;
+}
+
+.time {
+    font-size: 48px;
+    font-weight: bold;
+    color: #a1784d;
+}
+
+.date {
+    font-size: 16px;
+    color: #a1784d;
+    margin-top: 4px;
+}
+
+/* 主畫面排列 */
+.button-row {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 120px;
+}
+
+/* 其他功能排列 */
+.button-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 30px;
+    padding: 0 40px;
+    justify-items: center;
+    align-items: center;
+}
+
+/* 按鈕樣式 */
+.circle-btn {
+    background: none;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+}
+
+.icon-circle {
+    width: 140px;
+    height: 140px;
+    background-color: #f4e7dc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    margin-bottom: 12px;
+    transition: transform 0.2s;
+}
+
+.icon-circle img {
+    width: 120px;
+    height: 120px;
+}
+
+.icon-circle.small {
+    width: 100px;
+    height: 100px;
+}
+
+.circle-btn:hover .icon-circle {
+    transform: scale(1.05);
+}
+
+.circle-btn span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #a1784d;
+}
+
+/* 上一頁按鈕固定右下角 */
+.back-btn-container {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+.classroom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 100vh;
+  padding: 2%;
+  box-sizing: border-box;
+  background-color: #faf8f5;
+}
+
+.left-panel {
+  background: #f2e6dc;       /* 跟天氣左側一致 */
+  border-radius: 12px;       /* 圓角改成12px */
+  padding: 20px;             /* 調整內距 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 加上陰影 */
+}
+
+
+.left-panel:hover {
+  transform: translateY(-2px);
+} 
+
+.select-label {
+  font-weight: bold;          /* 跟天氣選單一致 */
+  color: #6b4e36;             /* 可以用稍深咖啡色 */
+  margin-bottom: 8px;
+  display: block;
+}
+
+
+/* 選單下拉框 */
+.select-input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 20px;       /* 跟天氣選單一致 */
+  border: none;
+  background: #d2bba0;        /* 跟天氣選單一致 */
+  color: #fff;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+.select-input:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(181,157,136,0.5);
+}
+
+
+/* 搜尋按鈕 */
+.search-btn {
+  width: 100%;
+  border-radius: 20px;
+  background: #d2bba0;        /* 跟天氣查詢按鈕同色 */
+  color: #fff;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.search-btn:hover {
+  background-color: #c2a68f;   /* 懸浮效果 */
+}
+
+
+.search-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.right-panel {
+  background: linear-gradient(145deg, #f3e6da, #e9dacc);
+  border-radius: 20px;
+  width: 60%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 4px 4px 15px rgba(0,0,0,0.08), -4px -4px 15px rgba(255,255,255,0.6);
+  transition: transform 0.2s;
+}
+
+.right-panel:hover {
+  transform: translateY(-2px);
+}
+
+.classroom-image {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 15px;
+  cursor: zoom-in;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.classroom-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.back-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 0;
+    background-color: #b59d88;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 20px; /* 四個角都是圓角 */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background-color: #a48b76;
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.8);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  max-width: 100vw;
+  max-height: 100vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  color: white;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* 天氣查詢容器 */
+.weather-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 20px;
+}
+
+.weather-left {
+  flex: 1;
+  background: #f2e6dc;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.weather-left label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.weather-left select, .query-btn {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 20px;
+  border: none;
+  background: #d2bba0;
+  color: #fff;
+  font-size: 16px;
+}
+
+.weather-right {
+  flex: 2;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.weather-card {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* 美食地圖頁面容器 */
+.foodmap-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
+
+/* --- 卡片容器 --- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 20px;
+}
+
+/* 統一卡片樣式（套用美食地圖風格） */
+.card {
+  background-color: #f2e6dc; /* 淺咖啡色 */
+  border-radius: 20px;
+  padding: 15px;
+  text-align: center;
+  font-family: "Microsoft JhengHei", sans-serif;
+  width: 220px; /* 和美食卡片同寬 */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+/* 卡片 hover 效果 */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* 卡片圖片 */
+.card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+/* 卡片標題 */
+.card h3 {
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #6b4e36;
+}
+
+/* 地址、距離 */
+.card p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* 導航按鈕 */
+.card button {
+  background-color: #b59d88;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.card button:hover {
+  background-color: #9c8672;
+}
+
+/* --- 上一頁按鈕 --- */
+/* 回上一頁四分之一圓按鈕 */
+.back-corner-btn {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background-color: #cbb29b;
+  border: none;
+  border-radius: 0 0 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  z-index: 1000;
+}
+
+.back-corner-btn img {
+  width: 30px;
+  height: 30px;
+}
+
+.back-corner-btn:hover {
+  background-color: #b49c84;
+  transform: scale(1.1);
+}
+
+.back-corner-btn:active {
+  transform: scale(0.95);
+}
+
+
+/* --- 統一按鈕風格 --- */
+button {
+  font-family: "Microsoft JhengHei", sans-serif;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* --- 開始導航按鈕 --- */
+button.start-btn {
+  background-color: #b5927c;   
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-size: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+button.start-btn:hover {
+  background-color: #a67c64;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+button.start-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.news-container {
+  background-color: #f2e6dc; /* 與教室頁面一致的淺咖啡色 */
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+.news-container h2 {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.news-list {
+  list-style-type: disc;
+  padding-left: 25px;
+}
+
+.news-list li {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.food-wheel-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fdf6e3; /* 與其他頁面配色一致的淺色 */
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  text-align: center;
+  z-index: 9999;
+}
+
+#foodWheelCanvas {
+  width: 300px;
+  height: 300px;
+  margin-bottom: 20px;
+}
+
+#spinButton, #closeWheelButton {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #FF5733;
+  color: white;
+  font-weight: bold;
+}
+
+#resultText {
+  margin-top: 15px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+.preview-img {
+  width: 100%;      /* 滿版寬度 */
+  height: auto;     /* 自動調整高度保持比例 */
+  max-height: 80vh; /* 最多不超過螢幕高度 80% */
+  object-fit: contain;
+  cursor: pointer;
+  border-radius: 10px;
+}

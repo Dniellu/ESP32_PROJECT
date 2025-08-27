@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>智慧面板</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- 時間與日期 -->
+  <div class="time-container">
+    <div id="time" class="time">00:00</div>
+    <div id="date" class="date">2025年1月1日, 星期三</div>
+  </div>
+
+  <!-- 主畫面 -->
+  <div id="page-main" class="page">
+    <div class="button-row">
+      <button class="circle-btn" onclick="showPage('page-classroom')">
+        <div class="icon-circle">
+          <img src="img/classroom-icon.png" alt="教室導引">
+        </div>
+        <span>教室導引</span>
+      </button>
+      <button class="circle-btn" onclick="showPage('page-other')">
+        <div class="icon-circle">
+          <img src="img/more-icon.png" alt="其他功能">
+        </div>
+        <span>其他功能</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 教室導引頁面 -->
+  <div id="page-classroom" class="page" style="display:none;">
+    <div class="classroom-guide-container" id="classroom-container">
+      <!-- JS 動態載入內容 -->
+    </div>
+    <div class="back-btn-container">
+      <button class="back-btn" onclick="showPage('page-main')">
+        <div class="icon-circle small">
+          <img src="img/back-icon.png" alt="上一頁">
+        </div>
+        <span>上一頁</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 天氣查詢頁面 -->
+  <div id="page-weather" class="page" style="display:none;">
+    <div class="weather-container">
+      <div class="weather-left">
+        <label for="city">選擇縣市</label>
+        <select id="city">
+          <option value="">請選擇縣市</option>
+        </select>
+        <button id="submitWeather" class="query-btn">查詢天氣</button>
+      </div>
+      <div class="weather-right" id="output">
+        <p>請先選擇縣市並查詢天氣</p>
+      </div>
+    </div>
+    <div class="back-btn-container">
+      <button class="back-btn" onclick="showPage('page-other')">
+        <div class="icon-circle small">
+          <img src="img/back-icon.png" alt="上一頁">
+        </div>
+        <span>上一頁</span>
+      </button>
+    </div>
+  </div>
+
+ <!-- 捷運站頁面 -->
+<div id="page-mrt" class="page" style="display:none;">
+  <div id="mrt-output" class="card-grid"></div>
+  <div class="back-btn-container">
+    <button class="back-btn" onclick="showPage('page-other')">
+      <div class="icon-circle small">
+        <img src="img/back-icon.png" alt="上一頁">
+      </div>
+      <span>上一頁</span>
+    </button>
+  </div>
+</div>
+
+<!-- YouBike 頁面 -->
+<div id="page-youbike" class="page" style="display:none;">
+  <div id="youbike-output" class="card-grid"></div>
+  <div class="back-btn-container">
+    <button class="back-btn" onclick="showPage('page-other')">
+      <div class="icon-circle small">
+        <img src="img/back-icon.png" alt="上一頁">
+      </div>
+      <span>上一頁</span>
+    </button>
+  </div>
+</div>
+
+<!-- 公車站牌頁面 -->
+<div id="page-bus" class="page" style="display:none;">
+  <div id="bus-output" class="card-grid"></div>
+  <div class="back-btn-container">
+    <button class="back-btn" onclick="showPage('page-other')">
+      <div class="icon-circle small">
+        <img src="img/back-icon.png" alt="上一頁">
+      </div>
+      <span>上一頁</span>
+    </button>
+  </div>
+</div>
+
+
+  <!-- 美食地圖頁面 -->
+  <div id="page-foodmap" class="page" style="display:none;">
+    <div class="foodmap-container">
+      <p>📍 載入中...</p>
+    </div>
+    <div class="back-btn-container">
+      <button class="back-btn" onclick="showPage('page-other')">
+        <div class="icon-circle small">
+          <img src="img/back-icon.png" alt="上一頁">
+        </div>
+        <span>上一頁</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 其他功能頁面 -->
+  <div id="page-other" class="page" style="display:none;">
+    <div class="button-grid">
+      <button class="circle-btn" onclick="showPage('page-weather')">
+        <div class="icon-circle"><img src="img/weather icon.png" alt="天氣查詢"></div><span>天氣查詢</span>
+      </button>
+      <button class="circle-btn" onclick="showPage('page-news')">
+        <div class="icon-circle"><img src="img/news icon.png" alt="最新資訊"></div>
+        <span>最新資訊</span>
+        </button>
+      <button class="circle-btn" onclick="showPage('page-mrt'); findNearestMRT();">
+        <div class="icon-circle"><img src="img/MRT icon.png" alt="捷運站"></div><span>捷運站</span>
+      </button>
+      <button class="circle-btn" onclick="showPage('page-youbike'); findYoubike();">
+        <div class="icon-circle"><img src="img/youbike icon.png" alt="Youbike"></div><span>Youbike</span>
+      </button>
+      <button class="circle-btn" onclick="showPage('page-bus'); findNearestBUS();">
+        <div class="icon-circle"><img src="img/bus icon.png" alt="公車站牌"></div><span>公車站牌</span>
+      </button>
+      <button class="circle-btn" onclick="showPage('page-foodmap'); showFoodMap();">
+        <div class="icon-circle"><img src="img/food icon.png" alt="美食地圖"></div><span>美食地圖</span>
+      </button>
+      <button class="circle-btn" onclick="openFoodWheel()">
+        <div class="icon-circle"><img src="img/Food turntable icon.png" alt="美食轉盤"></div>
+        <span>美食轉盤</span>
+        </button>
+    </div>
+    <div class="back-btn-container">
+      <button class="back-btn" onclick="showPage('page-main')">
+        <div class="icon-circle small">
+          <img src="img/back-icon.png" alt="上一頁">
+        </div>
+        <span>上一頁</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 最新資訊頁面 -->
+<div id="page-news" class="page" style="display:none;">
+  <div class="news-container">
+    <h2>📢 最新資訊</h2>
+    <ul class="news-list">
+      <li>2025/08/18 校園停車場調整公告</li>
+      <li>2025/08/17 教室維修通知：部分教室暫停使用</li>
+      <li>2025/08/15 學生活動中心開放時間更新</li>
+      <li>2025/08/10 校園免費講座：半導體技術分享</li>
+      <li>2025/08/01 健康中心疫苗接種公告</li>
+      <!-- 可依需求新增更多資訊 -->
+    </ul>
+  </div>
+  <div class="back-btn-container">
+    <button class="back-btn" onclick="showPage('page-other')">
+      <div class="icon-circle small">
+        <img src="img/back-icon.png" alt="上一頁">
+      </div>
+      <span>上一頁</span>
+    </button>
+  </div>
+</div>
+
+  <!-- JS 引入 -->
+  <script src="script.js"></script>
+  <script src="weather.js"></script>
+  <script src="foodmap.js"></script>
+  <script src="classroom.js"></script>
+  <script src="bus.js"></script>
+  <script src="MRT.js"></script>
+  <script src="Youbike.js"></script>
+  <script src="turntable.js"></script>
+</body>
+</html>

@@ -1,23 +1,51 @@
 /* === 基本樣式設定 === */
 body {
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    background-color: #f0f8ff;
-    margin: 0;
-    padding: 0;
+    font-family: 'Arial', sans-serif; /* 字型 */
+    text-align: center;               /* 置中對齊文字 */
+    background-color: #f0f8ff;       /* 淺藍背景 */
+    margin: 0;                       /* 取消預設外距 */
+    padding: 0;                      /* 取消預設內距 */
+    background: url('images/background.png') no-repeat center center fixed;
+    background-size: cover;
 }
 
 h1 {
-    margin-top: 40px;
-    font-size: 32px;
-    font-weight: 600;
-    color: #2c3e50;
+    margin-top: 40px;                /* 頂部外距 */
+    font-size: 32px;                 /* 字型大小 */
+    font-weight: 600;                /* 字重 */
+    color: #2c3e50;                 /* 深藍文字色 */
 }
 
+/* 按鈕容器，用來置中按鈕並做外距 */
 .button-container {
-    margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 30px;
+  flex-wrap: wrap;
 }
 
+.button-container button {
+  width: 250px;
+  height: 250px;
+  font-size: 36px;
+  font-weight: bold;
+  border: none;
+  border-radius: 40px;
+  background: linear-gradient(to bottom, #cce6ff, #3399ff);
+  color: #000;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.button-container button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+}
+
+
+/* 按鈕基本樣式 */
 button {
     display: inline-block;
     width: 220px;
@@ -25,33 +53,37 @@ button {
     padding: 12px 20px;
     font-size: 18px;
     border: none;
-    background-color: #3498db;
+    background-color: #3498db;     /* 按鈕藍色 */
     color: white;
-    border-radius: 10px;
+    border-radius: 10px;            /* 圓角 */
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;      /* 動畫過渡 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 陰影 */
 }
 
+/* 按鈕滑鼠移入效果 */
 button:hover {
-    background-color: #2980b9;
-    transform: translateY(-4px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background-color: #2980b9;     /* 深藍 */
+    transform: translateY(-4px);    /* 往上移動 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 陰影加深 */
 }
 
+/* 按鈕點擊時效果 */
 button:active {
-    transform: translateY(0);
+    transform: translateY(0);       /* 回到原位 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* 表單標籤樣式 */
 label {
     font-size: 16px;
     font-weight: bold;
     color: #2c3e50;
-    display: block;
+    display: block;               /* 換行顯示 */
     margin-top: 10px;
 }
 
+/* 下拉選單樣式 */
 select {
     width: 100%;
     padding: 10px;
@@ -59,16 +91,16 @@ select {
     border-radius: 8px;
     border: 1px solid #ddd;
     font-size: 16px;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa;    /* 淺灰背景 */
     cursor: pointer;
 }
 
-/* === 語言選單 === */
+/* === 語言選單區域 === */
 .language-container {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.7); /* 半透明黑色背景 */
     padding: 10px;
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -89,7 +121,7 @@ select {
     background-color: #f0f0f0;
 }
 
-/* === 小助手 AI === */
+/* === 小助手 AI 區域 === */
 #ai-assistant {
     position: fixed;
     bottom: 20px;
@@ -97,10 +129,11 @@ select {
     z-index: 9999;
 }
 
+/* 小助手按鈕樣式 */
 .assistant-button button {
     padding: 12px 20px;
     font-size: 16px;
-    background-color: #4CAF50;
+    background-color: #4CAF50; /* 綠色 */
     color: white;
     border: none;
     border-radius: 10px;
@@ -114,8 +147,9 @@ select {
     transform: scale(1.1);
 }
 
+/* 小助手選單 */
 #menu {
-    display: none;
+    display: none;               /* 預設隱藏 */
     position: fixed;
     bottom: 100px;
     left: 20px;
@@ -127,6 +161,7 @@ select {
     transition: all 0.3s ease;
 }
 
+/* 小助手選單裡的按鈕 */
 .assistant-menu button {
     display: block;
     margin: 8px 0;
@@ -147,8 +182,9 @@ select {
     background-color: #45a049;
 }
 
+/* 小助手回答區 */
 .assistant-answer {
-    display: none;
+    display: none;               /* 預設隱藏 */
     position: fixed;
     bottom: 100px;
     left: 20px;
@@ -160,9 +196,10 @@ select {
     text-align: center;
 }
 
+/* 小助手回答區關閉按鈕 */
 .assistant-answer button {
     padding: 12px;
-    background-color: #f44336;
+    background-color: #f44336;   /* 紅色 */
     color: white;
     border: none;
     border-radius: 8px;
@@ -179,9 +216,9 @@ select {
 #output {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 10px;                  /* 區塊間距 */
     max-width: 400px;
-    margin: 20px auto;
+    margin: 20px auto;          /* 上下外距與置中 */
     padding: 10px;
     font-size: 20px;
     color: #34495e;
@@ -189,19 +226,20 @@ select {
     line-height: 1.5;
 }
 
+/* 單一站牌卡片 */
 .station-card {
-    background: #e3f2fd;
+    background: #e3f2fd;        /* 淺藍背景 */
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: left;
-    border-left: 6px solid #2196F3;
+    border-left: 6px solid #2196F3; /* 藍色左邊框 */
     margin: 10px 0;
 }
 
 .station-card h3 {
     margin: 0 0 10px 0;
-    color: #007bff;
+    color: #007bff;             /* 藍色標題 */
 }
 
 .station-card p {
@@ -213,12 +251,13 @@ select {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 20px;
+    gap: 20px;                  /* 兩欄間距 */
     margin-top: 50px;
-    flex-wrap: wrap;
+    flex-wrap: wrap;            /* 可換行 */
     padding: 20px;
 }
 
+/* 天氣輸入與顯示框樣式 */
 #weatherBox, #weatherDisplay {
     margin-left: 80px;
     margin-bottom: 40px;
@@ -237,25 +276,28 @@ select {
     width: 320px;
 }
 
+/* 天氣顯示框改變邊框顏色 */
 #weatherDisplay {
-    border-color: #2ecc71;
+    border-color: #2ecc71; /* 綠色 */
 }
 
+/* 天氣輸入框的按鈕 */
 #weatherBox button {
     width: 90%;
     margin: 10px 0;
 }
 
-/* === 響應式設計 === */
+/* === 響應式設計，螢幕寬度小於768px時 */
 @media (max-width: 768px) {
     .weather-container {
-        flex-direction: column;
+        flex-direction: column;  /* 改為上下排列 */
         align-items: center;
     }
     #weatherBox, #weatherDisplay {
-        width: 90%;
-        text-align: left;
+        width: 90%;              /* 寬度改為90% */
+        text-align: left;        /* 左對齊 */
         margin-bottom: 10px;
+        margin-left: 0;          /* 取消左邊距 */
     }
 }
 
@@ -280,6 +322,7 @@ select {
     margin-bottom: 15px;
 }
 
+/* 轉盤結果文字 */
 #resultText {
     font-size: 18px;
     font-weight: bold;
@@ -287,8 +330,9 @@ select {
     margin-top: 10px;
 }
 
+/* 轉盤按鈕 */
 #spinButton {
-    background-color: #e74c3c;
+    background-color: #e74c3c; /* 紅色 */
 }
 
 #spinButton:hover {
@@ -299,6 +343,7 @@ select {
     width: 120px;
     margin: 8px;
 }
+
 
 /* === 公車站牌樣式 === */
 #dm-container {
@@ -458,4 +503,85 @@ select {
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
+}
+/* 放大時間字體 */
+.large-clock #time {
+  font-size: 80px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  display: block;
+  margin-top: 20px;
+}
+
+/* 按鈕容器改成 flex 排列 */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 40px;
+}
+
+.custom-btn {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 15px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.02);
+}
+
+.custom-btn:active {
+  transform: scale(0.98);
+}
+.fullscreen-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  overflow-y: auto;
+  padding: 20px;
+  z-index: 999; /* 確保在最上層 */
+}
+
+.fullscreen-box h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.station-card {
+  background: #f0f0f0;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navigate-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.navigate-btn:hover {
+  background-color: #0056b3;
 }

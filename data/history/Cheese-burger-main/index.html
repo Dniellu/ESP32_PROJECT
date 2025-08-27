@@ -28,18 +28,40 @@
   <span id="time">--:--:--</span>
     </div>
 
-    <!-- 功能按鈕區 -->
-    <div class="button-container">
+    <!-- 首頁按鈕 -->
+    <div id="main-buttons" class="button-container">
       <button onclick="openClassroomGuide()">🏫 教室導引</button>
-      <button onclick="toggleOtherFunctions()">🔧 其他功能</button>
-    </div>
-    <div id="other-functions" class="button-container" style="display: none;">
-      <button id="weather" onclick="openWeather()" data-i18n="weather">🌤 天氣查詢</button>
-      <button id="map" onclick="openMap()" data-i18n="map">🗺 地圖導航</button>
+      <button onclick="showOtherFunctions()">🔧 其他功能</button>
     </div>
 
+   <!-- 第二層按鈕區（其他功能） -->
+<div id="secondary-buttons" class="button-container"style="display:none;">
+  <button onclick="findFood()">🍜 美食地圖</button>
+  <button onclick="showCampusMenu()">🏫 校區介紹</button>
+  <button onclick="findNearestBUS()">🚏 公車站牌位置</button>
+  <button onclick="findNearestMRT()">🚇 捷運站位置</button>
+  <button onclick="findYoubike()">🚲 YouBike 站點查詢</button>
+  <button id="weather" onclick="openWeather()" data-i18n="weather">🌤 天氣查詢</button>
+</div>
 
-    <!-- 天氣查詢區塊 -->
+<div id="back-button" style="text-align: right; margin: 10px; display: none;">
+  <button onclick="goBack()">⬅️ 上一頁</button>
+</div>
+
+   <!-- 第三層按鈕區（校區介紹） -->
+<div id="campus-buttons" class="button-container"style="display:none;">
+  <button onclick="showCampusInfo('和平校區')">🏫 和平校區</button>
+  <button onclick="showCampusInfo('圖書館校區')">📚 圖書館校區</button>
+  <button onclick="showCampusInfo('公館校區')">🏢 公館校區</button>
+  <button onclick="showCampusInfo('林口校區')">🌳 林口校區</button>
+</div>
+
+<div id="back-button" style="text-align: right; margin: 10px; display: none;">
+  <button onclick="goBack()">⬅️ 上一頁</button>
+</div>
+
+
+   <!-- 第三層按鈕區（天氣查詢） -->
     <div class="weather-container">
       <div id="weatherBox" class="weather-form" style="display: none;">
         <h3>🔍 天氣查詢</h3>
@@ -53,7 +75,7 @@
       <div id="output" class="weather-output"></div>
     </div>
 
-    <!-- 教室導引區塊 -->
+   <!-- 第二層按鈕區（教室導引） -->
     <div id="classroomBox" class="container" style="display: none;">
       <select id="area" onchange="updateClassrooms()">
         <option value="">請選擇區域</option>
@@ -165,7 +187,7 @@
 
       // 即時更新時間
       function updateTime() {
-        const now = new Date();
+        const now = new Date(); 
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
