@@ -11,21 +11,25 @@ body {
 }
 
 /* 時間與日期 */
+/* 時間與日期容器 */
 .time-container {
-    margin-top: 20px;
+    margin-top: 80px;  /* 原本 20px → 增加距離，往下移動 */
 }
 
+/* 時間數字 */
 .time {
-    font-size: 48px;
+    font-size: 72px;   /* 原本 48px → 放大數字 */
     font-weight: bold;
     color: #a1784d;
 }
 
+/* 日期文字，如果也想跟著放大，可以調整 */
 .date {
-    font-size: 16px;
+    font-size: 20px;   /* 原本 16px → 放大 */
     color: #a1784d;
-    margin-top: 4px;
+    margin-top: 6px;   /* 調整日期與時間的間距 */
 }
+
 
 /* 主畫面排列 */
 .button-row {
@@ -34,7 +38,9 @@ body {
     justify-content: center;
     align-items: center;
     gap: 120px;
+    margin-top: 70px; /* 原本沒有這行或數值較小 → 調整往下 */
 }
+
 
 /* 其他功能排列 */
 .button-grid {
