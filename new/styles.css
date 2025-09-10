@@ -98,18 +98,18 @@ body {
 
 .classroom-container {
   display: flex;
-  flex-direction: row;        /* 橫向排列：左邊選單 + 右邊圖片 */
-  justify-content: flex-start;
+  flex-direction: row;          /* 橫向排列：左邊選單 + 右邊圖片 */
+  justify-content: flex-start;  /* 從左開始排 */
   align-items: flex-start;
   height: 100vh;
   padding: 2%;
   box-sizing: border-box;
   background-color: #faf8f5;
-  gap: 20px;                  /* 左右區塊間距 */
+  gap: 20px;                    /* 左右區塊間距 */
 }
 
 .left-panel {
-  flex: 0 0 350px;            /* 固定大約 350px 寬，不再佔滿 */
+  flex: 0 0 350px;              /* 固定左邊寬度（350px，可自行調整） */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,7 +117,29 @@ body {
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 20px;   /* 往下移動 */
+  margin-left: 90px;  /* 往右移動 */
 }
+
+.right-panel { 
+  flex: 1;                      /* 右邊佔滿剩餘空間 */
+  background: linear-gradient(145deg, #f3e6da, #e9dacc);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 4px 4px 15px rgba(0,0,0,0.08), -4px -4px 15px rgba(255,255,255,0.6);
+  transition: transform 0.2s;
+  padding: 20px;
+  overflow: hidden;             /* 防止圖片超出 */
+}
+
+.right-panel img {
+  max-width: 100%;              /* 限制圖片寬度不超過容器 */
+  max-height: 100%;             /* 限制圖片高度不超過容器 */
+  object-fit: contain;          /* 保持比例縮放 */
+}
+
 
 
 /* 新增的這段 ↓↓↓ */
@@ -189,21 +211,6 @@ body {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.right-panel { 
-  flex: 1;                    /* 右邊佔滿剩餘空間 */
-  background: linear-gradient(145deg, #f3e6da, #e9dacc);
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 4px 4px 15px rgba(0,0,0,0.08), -4px -4px 15px rgba(255,255,255,0.6);
-  transition: transform 0.2s;
-  padding: 20px;
-}
-
-.right-panel:hover {
-  transform: translateY(-2px);
-}
 
 .classroom-image {
   max-width: 100%;
