@@ -367,6 +367,7 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   padding: 20px;
+  justify-items: center; 
 }
 
 /* 統一卡片樣式（套用美食地圖風格） */
