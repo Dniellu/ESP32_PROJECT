@@ -21,7 +21,6 @@ function findYoubike() {
       card.className = "card";
 
       card.innerHTML = `
-        <img src="img/youbike.png" alt="${st.name}">
         <h3>${st.name}</h3>
         <p>📍 ${st.address}</p>
         <p>📏 ${st.distance.toFixed(2)} 公里</p>
