@@ -21,13 +21,10 @@ function showPage(pageId) {
   document.querySelectorAll(".page").forEach(p => p.style.display = "none");
   document.getElementById(pageId).style.display = "block";
 
-  // ⚡ 當進入美食地圖時，自動載入美食資料
   if (pageId === "page-foodmap") {
     showFoodMap();
   }
 }
-
-
 
 // 假的教室導引功能
 function openGuide() {
