@@ -58,27 +58,27 @@ body {
 }
 
 .icon-circle {
-    width: 140px;
-    height: 140px;
+    width: 180px;   /* 原本 140px → 放大 */
+    height: 180px;  /* 原本 140px → 放大 */
     background-color: #f4e7dc;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    margin-bottom: 12px;
+    margin-bottom: 16px; /* 原本 12px → 放大一點間距 */
     transition: transform 0.2s;
 }
 
 .icon-circle img {
-    width: 120px;
-    height: 120px;
+    width: 150px;   /* 原本 120px → 放大 */
+    height: 150px;  /* 原本 120px → 放大 */
     display: block;
 }
 
 .icon-circle.small {
-  width: 32px;
-  height: 32px;
+  width: 40px;   /* 原本 32px → 微調放大 */
+  height: 40px;  /* 原本 32px → 微調放大 */
   background-color: #f7ede6;
   border-radius: 50%;
   display: flex;
@@ -87,29 +87,29 @@ body {
 }
 
 .circle-btn:hover .icon-circle {
-    transform: scale(1.05);
+    transform: scale(1.1); /* 原本 1.05 → 滑過時更明顯 */
 }
 
 .circle-btn span {
-    font-size: 18px;
+    font-size: 22px;  /* 原本 18px → 放大文字 */
     font-weight: bold;
     color: #a1784d;
 }
 
 .classroom-container {
   display: flex;
-  justify-content: center;
+  flex-direction: row;        /* 橫向排列：左邊選單 + 右邊圖片 */
+  justify-content: flex-start;
   align-items: flex-start;
   height: 100vh;
   padding: 2%;
   box-sizing: border-box;
   background-color: #faf8f5;
+  gap: 20px;                  /* 左右區塊間距 */
 }
 
 .left-panel {
-  width: 100%;
-  max-width: 900px; /* 控制最大寬度 */
-  margin: 0 auto;   /* ⬅️ 這行是關鍵，讓它水平置中 */
+  flex: 0 0 350px;            /* 固定大約 350px 寬，不再佔滿 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,6 +118,7 @@ body {
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
+
 
 /* 新增的這段 ↓↓↓ */
 .left-panel select,
@@ -188,16 +189,16 @@ body {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.right-panel {
+.right-panel { 
+  flex: 1;                    /* 右邊佔滿剩餘空間 */
   background: linear-gradient(145deg, #f3e6da, #e9dacc);
   border-radius: 20px;
-  width: 60%;
-  height: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 4px 4px 15px rgba(0,0,0,0.08), -4px -4px 15px rgba(255,255,255,0.6);
   transition: transform 0.2s;
+  padding: 20px;
 }
 
 .right-panel:hover {
