@@ -551,3 +551,19 @@ button.start-btn:active {
 .show-image-btn:hover {
   background-color: #a38b76;
 }
+
+#screensaver {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.slide {
+  display: none; /* 預設隱藏每張投影片 */
+}
