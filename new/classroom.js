@@ -6,41 +6,46 @@ document.addEventListener("DOMContentLoaded", () => {
 function openClassroomGuide() {
   const container = document.getElementById("classroom-container");
   container.innerHTML = `
-    <div class="left-panel weather-left">
-      <label for="area" class="select-label">選擇區域：</label>
-      <select id="area" onchange="updateClassrooms()">
-        <option value="">請選擇區域</option>
-        <option value="cheng">誠</option>
-        <option value="zheng">正</option>
-        <option value="qin">勤</option>
-        <option value="pu">樸</option>
-        <option value="office">系所辦公室</option>
-      </select>
+    <div class="guide-container" style="display: flex; gap: 20px; align-items: flex-start;">
+      
+      <!-- 左側選單 -->
+      <div class="left-panel weather-left" style="flex: 1; max-width: 250px;">
+        <label for="area" class="select-label">選擇區域：</label>
+        <select id="area" onchange="updateClassrooms()">
+          <option value="">請選擇區域</option>
+          <option value="cheng">誠</option>
+          <option value="zheng">正</option>
+          <option value="qin">勤</option>
+          <option value="pu">樸</option>
+          <option value="office">系所辦公室</option>
+        </select>
 
-      <label for="floor">選擇樓層：</label>
-      <select id="floor" onchange="updateClassrooms()">
-        <option value="">請選擇樓層</option>
-        <option value="1樓">1樓</option>
-        <option value="2樓">2樓</option>
-        <option value="3樓">3樓</option>
-        <option value="4樓">4樓</option>
-        <option value="5樓">5樓</option>
-      </select>
+        <label for="floor">選擇樓層：</label>
+        <select id="floor" onchange="updateClassrooms()">
+          <option value="">請選擇樓層</option>
+          <option value="1樓">1樓</option>
+          <option value="2樓">2樓</option>
+          <option value="3樓">3樓</option>
+          <option value="4樓">4樓</option>
+          <option value="5樓">5樓</option>
+        </select>
 
-      <label for="classroom">選擇教室：</label>
-      <select id="classroom" disabled>
-        <option value="">請選擇教室</option>
-      </select>
+        <label for="classroom">選擇教室：</label>
+        <select id="classroom" disabled>
+          <option value="">請選擇教室</option>
+        </select>
 
-      <button class="show-image-btn" onclick="showImage()">📸 顯示教室圖片</button>
+        <button class="show-image-btn" onclick="showImage()">📸 顯示教室圖片</button>
+      </div>
 
+      <!-- 右側圖片 -->
+      <div id="result" style="flex: 2; display:none;">
+        <img id="classroom-image" src="" alt="教室圖片" class="preview-img" style="max-width: 100%; border-radius: 10px;" />
+        <p class="hint">🔍 點擊圖片可放大</p>
+      </div>
     </div>
 
-    <div id="result" style="display:none; margin-top: 1em;">
-      <img id="classroom-image" src="" alt="教室圖片" class="preview-img" />
-      <p class="hint">🔍 點擊圖片可放大</p>
-    </div>
-
+    <!-- Modal -->
     <div id="imageModal" class="modal" onclick="closeModal()" style="display:none;">
       <span class="modal-close" onclick="closeModal()">&times;</span>
       <img class="modal-content" id="modalImage">
@@ -49,7 +54,6 @@ function openClassroomGuide() {
 }
 
 // updateClassrooms、showImage、openModal、closeModal
-// （完全使用你提供的程式碼，不動邏輯）
 
 function updateClassrooms() {
   const area = document.getElementById("area").value;
@@ -114,14 +118,11 @@ function showImage() {
   const classroom = document.getElementById("classroom").value;
   if (!classroom) return alert("請選擇完整資訊");
 
-  // 改成 img/ 資料夾
   const path = `img/${classroom}.jpg`;
   const img = document.getElementById("classroom-image");
   img.src = path;
 
-  // 如果找不到圖片，就用預設圖
   img.onerror = () => img.src = "img/default.jpg";
-
   img.onclick = () => openModal(img.src);
 
   document.getElementById("result").style.display = "block";
@@ -132,7 +133,6 @@ function showImage() {
     .then(msg => console.log("ESP32 回應：", msg))
     .catch(err => console.error("傳送失敗：", err));
 }
-
 
 function openModal(imageSrc) {
   const modal = document.getElementById("imageModal");

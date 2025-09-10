@@ -11,21 +11,25 @@ body {
 }
 
 /* 時間與日期 */
+/* 時間與日期容器 */
 .time-container {
-    margin-top: 20px;
+    margin-top: 80px;  /* 原本 20px → 增加距離，往下移動 */
 }
 
+/* 時間數字 */
 .time {
-    font-size: 48px;
+    font-size: 72px;   /* 原本 48px → 放大數字 */
     font-weight: bold;
     color: #a1784d;
 }
 
+/* 日期文字，如果也想跟著放大，可以調整 */
 .date {
-    font-size: 16px;
+    font-size: 20px;   /* 原本 16px → 放大 */
     color: #a1784d;
-    margin-top: 4px;
+    margin-top: 6px;   /* 調整日期與時間的間距 */
 }
+
 
 /* 主畫面排列 */
 .button-row {
@@ -34,7 +38,9 @@ body {
     justify-content: center;
     align-items: center;
     gap: 120px;
+    margin-top: 70px; /* 原本沒有這行或數值較小 → 調整往下 */
 }
+
 
 /* 其他功能排列 */
 .button-grid {
@@ -58,27 +64,27 @@ body {
 }
 
 .icon-circle {
-    width: 140px;
-    height: 140px;
+    width: 180px;   /* 原本 140px → 放大 */
+    height: 180px;  /* 原本 140px → 放大 */
     background-color: #f4e7dc;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    margin-bottom: 12px;
+    margin-bottom: 16px; /* 原本 12px → 放大一點間距 */
     transition: transform 0.2s;
 }
 
 .icon-circle img {
-    width: 120px;
-    height: 120px;
+    width: 150px;   /* 原本 120px → 放大 */
+    height: 150px;  /* 原本 120px → 放大 */
     display: block;
 }
 
 .icon-circle.small {
-  width: 32px;
-  height: 32px;
+  width: 40px;   /* 原本 32px → 微調放大 */
+  height: 40px;  /* 原本 32px → 微調放大 */
   background-color: #f7ede6;
   border-radius: 50%;
   display: flex;
@@ -87,29 +93,29 @@ body {
 }
 
 .circle-btn:hover .icon-circle {
-    transform: scale(1.05);
+    transform: scale(1.1); /* 原本 1.05 → 滑過時更明顯 */
 }
 
 .circle-btn span {
-    font-size: 18px;
+    font-size: 22px;  /* 原本 18px → 放大文字 */
     font-weight: bold;
     color: #a1784d;
 }
 
 .classroom-container {
   display: flex;
-  justify-content: center;
+  flex-direction: row;          /* 橫向排列：左邊選單 + 右邊圖片 */
+  justify-content: flex-start;  /* 從左開始排 */
   align-items: flex-start;
   height: 100vh;
   padding: 2%;
   box-sizing: border-box;
   background-color: #faf8f5;
+  gap: 20px;                    /* 左右區塊間距 */
 }
 
 .left-panel {
-  width: 100%;
-  max-width: 900px; /* 控制最大寬度 */
-  margin: 0 auto;   /* ⬅️ 這行是關鍵，讓它水平置中 */
+  flex: 0 0 350px;              /* 固定左邊寬度（350px，可自行調整） */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,7 +123,30 @@ body {
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 20px;   /* 往下移動 */
+  margin-left: 90px;  /* 往右移動 */
 }
+
+.right-panel { 
+  flex: 1;                      /* 右邊佔滿剩餘空間 */
+  background: linear-gradient(145deg, #f3e6da, #e9dacc);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 4px 4px 15px rgba(0,0,0,0.08), -4px -4px 15px rgba(255,255,255,0.6);
+  transition: transform 0.2s;
+  padding: 20px;
+  overflow: hidden;             /* 防止圖片超出 */
+}
+
+.right-panel img {
+  max-width: 100%;              /* 限制圖片寬度不超過容器 */
+  max-height: 100%;             /* 限制圖片高度不超過容器 */
+  object-fit: contain;          /* 保持比例縮放 */
+}
+
+
 
 /* 新增的這段 ↓↓↓ */
 .left-panel select,
@@ -188,21 +217,6 @@ body {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.right-panel {
-  background: linear-gradient(145deg, #f3e6da, #e9dacc);
-  border-radius: 20px;
-  width: 60%;
-  height: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 4px 4px 15px rgba(0,0,0,0.08), -4px -4px 15px rgba(255,255,255,0.6);
-  transition: transform 0.2s;
-}
-
-.right-panel:hover {
-  transform: translateY(-2px);
-}
 
 .classroom-image {
   max-width: 100%;
