@@ -22,7 +22,6 @@ function findNearestBUS() {
       card.className = "card"; // 套用 CSS
 
       card.innerHTML = `
-        <img src="img/bus.png" alt="${st.name}">
         <h3>${st.name}</h3>
         <p>📍 ${st.address}</p>
         <p>📏 ${st.distance.toFixed(2)} 公里</p>

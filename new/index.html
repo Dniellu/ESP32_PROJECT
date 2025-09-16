@@ -8,13 +8,13 @@
 </head>
 <body>
   <!-- 時間與日期 -->
-  <div class="time-container">
-    <div id="time" class="time">00:00</div>
-    <div id="date" class="date">2025年1月1日, 星期三</div>
-  </div>
-
-  <!-- 主畫面 -->
   <div id="page-main" class="page">
+    <!-- ✅ 時間與日期：只在主畫面顯示 -->
+    <div class="time-container">
+      <div id="time" class="time">00:00</div>
+      <div id="date" class="date">2025年1月1日, 星期三</div>
+    </div>
+
     <div class="button-row">
       <button class="circle-btn" onclick="showPage('page-classroom')">
         <div class="icon-circle">
@@ -30,7 +30,6 @@
       </button>
     </div>
   </div>
-
   <!-- 閒置畫面：投影片播放區 -->
   <div id="screensaver" style="display:none;">
     <div class="slideshow">
