@@ -12,6 +12,9 @@ const char* password = "TAHRD310";
 // SD卡設定
 #define SD_CS 5  // SD 卡 CS 腳位
 
+// 蜂鳴器設定
+#define BUZZER_PIN 22  // 接蜂鳴器腳位
+
 WebServer server(80);
 
 // 馬達設定
@@ -23,6 +26,7 @@ AccelStepper stepper(AccelStepper::DRIVER, STEP_PIN, DIR_PIN);
 int currentAngle = 0;
 
 void setup() {
+<<<<<<< HEAD
   //蜂鳴器測試
   #define BUZZER_PIN 22  // 接蜂鳴器腳位
 
@@ -31,7 +35,11 @@ void setup() {
   pinMode(BUZZER_PIN, OUTPUT);
 }
 
+=======
+>>>>>>> 03adc7156e869fc6c743832a24c23d3e3e57917b
   Serial.begin(115200);
+
+  pinMode(BUZZER_PIN, OUTPUT);
 
   // WiFi 連線
   WiFi.begin(ssid, password);
@@ -81,7 +89,6 @@ void loop() {
 // 提供靜態資源 (js, css, 圖片等)
 void handleFileRequest() {
   String path = urlDecode(server.uri());
-
 
   if (!path.startsWith("/")) path = "/" + path;
   if (path.endsWith("/")) path += "index.html";
@@ -146,9 +153,11 @@ void handleRotate() {
 
   server.send(200, "text/plain", "旋轉成功到 " + classroom);
   Serial.println("✅ 指向已更新至 " + classroom);
+
   tone(BUZZER_PIN, 1000, 200); // 發出 1000Hz 音調，200ms
 }
-  // 解碼 URL 字串
+
+// 解碼 URL 字串
 String urlDecode(const String& input) {
   String decoded = "";
   char c;
@@ -168,4 +177,3 @@ String urlDecode(const String& input) {
   }
   return decoded;
 }
-
