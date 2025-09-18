@@ -24,7 +24,7 @@ int currentAngle = 0;
 
 void setup() {
   //蜂鳴器測試
-  #define BUZZER_PIN 25  // 接蜂鳴器腳位
+  #define BUZZER_PIN 22  // 接蜂鳴器腳位
 
 void setup() {
   ...
