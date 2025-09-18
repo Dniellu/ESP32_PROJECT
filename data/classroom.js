@@ -1,43 +1,51 @@
-// 教室導引區塊
+document.addEventListener("DOMContentLoaded", () => {
+  // 預先載入教室導引 UI
+  openClassroomGuide();
+});
+
 function openClassroomGuide() {
-  closeAllFeatureBoxes(); // 關掉其他功能區塊
+  const container = document.getElementById("classroom-container");
+  container.innerHTML = `
+    <div class="guide-container" style="display: flex; gap: 20px; align-items: flex-start;">
+      
+      <!-- 左側選單 -->
+      <div class="left-panel weather-left" style="flex: 1; max-width: 250px;">
+        <label for="area" class="select-label">選擇區域：</label>
+        <select id="area" onchange="updateClassrooms()">
+          <option value="">請選擇區域</option>
+          <option value="cheng">誠</option>
+          <option value="zheng">正</option>
+          <option value="qin">勤</option>
+          <option value="pu">樸</option>
+          <option value="office">系所辦公室</option>
+        </select>
 
-  // 顯示教室導引的選單與圖片結果容器
-  document.getElementById("output").innerHTML = `
-    <div class="classroom-guide">
-      <label for="area">選擇區域：</label>
-      <select id="area" onchange="updateClassrooms()">
-        <option value="">請選擇區域</option>
-        <option value="cheng">誠</option>
-        <option value="zheng">正</option>
-        <option value="qin">勤</option>
-        <option value="pu">樸</option>
-        <option value="office">系所辦公室</option>
-      </select>
+        <label for="floor">選擇樓層：</label>
+        <select id="floor" onchange="updateClassrooms()">
+          <option value="">請選擇樓層</option>
+          <option value="1樓">1樓</option>
+          <option value="2樓">2樓</option>
+          <option value="3樓">3樓</option>
+          <option value="4樓">4樓</option>
+          <option value="5樓">5樓</option>
+        </select>
 
-      <label for="floor">選擇樓層：</label>
-      <select id="floor" onchange="updateClassrooms()">
-        <option value="">請選擇樓層</option>
-        <option value="1樓">1樓</option>
-        <option value="2樓">2樓</option>
-        <option value="3樓">3樓</option>
-        <option value="4樓">4樓</option>
-        <option value="5樓">5樓</option>
-      </select>
+        <label for="classroom">選擇教室：</label>
+        <select id="classroom" disabled>
+          <option value="">請選擇教室</option>
+        </select>
 
-      <label for="classroom">選擇教室：</label>
-      <select id="classroom" disabled>
-        <option value="">請選擇教室</option>
-      </select>
+        <button class="show-image-btn" onclick="showImage()">📸 顯示教室圖片</button>
+      </div>
 
-      <button onclick="showImage()">📸 顯示教室圖片</button>
+      <!-- 右側圖片 -->
+      <div id="result" style="flex: 2; display:none;">
+        <img id="classroom-image" src="" alt="教室圖片" class="preview-img" style="max-width: 100%; border-radius: 10px;" />
+        <p class="hint">🔍 點擊圖片可放大</p>
+      </div>
     </div>
 
-    <div id="result" style="display:none; margin-top: 1em;">
-      <img id="classroom-image" src="" alt="教室圖片" style="max-width:100%; border: 1px solid #ccc; cursor: zoom-in;" />
-      <p style="text-align:center; font-size: 0.9em;">🔍 點擊圖片可放大</p>
-    </div>
-
+    <!-- Modal -->
     <div id="imageModal" class="modal" onclick="closeModal()" style="display:none;">
       <span class="modal-close" onclick="closeModal()">&times;</span>
       <img class="modal-content" id="modalImage">
@@ -45,19 +53,17 @@ function openClassroomGuide() {
   `;
 }
 
+// updateClassrooms、showImage、openModal、closeModal
+
 function updateClassrooms() {
   const area = document.getElementById("area").value;
   const floorSelect = document.getElementById("floor");
   const classroomSelect = document.getElementById("classroom");
 
-  // 清除舊選項
   classroomSelect.innerHTML = '<option value="">請選擇教室</option>';
 
   if (area === "office") {
-    // 鎖住樓層選單
     floorSelect.disabled = true;
-
-    // 加入辦公室選項
     const officeRooms = [
       "健康促進與衛生教育學系5F", "健康促進與衛生教育學系6F", "英語診斷室1F", "英語聊天室1F", "英語學系8F", "英語學系7F",
       "網路大學籌辦處4F", "社會工作學研究所5F", "歷史學系5F", "歷史學系4F", "文學院3F", "文保中心5F", "教學發展中心1F",
@@ -71,14 +77,11 @@ function updateClassrooms() {
       option.textContent = room;
       classroomSelect.appendChild(option);
     });
-
     classroomSelect.disabled = false;
     return;
   }
 
-  // 不是 office 選項時還原樓層選單
   floorSelect.disabled = false;
-
   const floor = floorSelect.value;
   const classroomData = {
     cheng: {
@@ -93,9 +96,7 @@ function updateClassrooms() {
       "3樓": ["正301", "正302", "正303", "正304", "正305", "正306"],
       "4樓": ["正401", "正402", "正403", "正404", "正405", "正406", "正407"]
     },
-    qin: {
-      "3樓": ["勤301", "勤302"]
-    },
+    qin: { "3樓": ["勤301", "勤302"] },
     pu: {
       "1樓": ["樸105", "樸106"],
       "2樓": ["樸201", "樸202", "樸203", "樸204", "樸205", "樸206"],
@@ -103,16 +104,13 @@ function updateClassrooms() {
       "4樓": ["樸401", "樸402", "樸403", "樸404", "樸405", "樸406", "樸407"]
     }
   };
-
   const classrooms = classroomData[area]?.[floor] || [];
-
   classrooms.forEach(room => {
     const option = document.createElement("option");
     option.value = room;
     option.textContent = room;
     classroomSelect.appendChild(option);
   });
-
   classroomSelect.disabled = classrooms.length === 0;
 }
 
@@ -120,17 +118,16 @@ function showImage() {
   const classroom = document.getElementById("classroom").value;
   if (!classroom) return alert("請選擇完整資訊");
 
-  const path = `images/${classroom}.jpg`;
+  const path = `img/${classroom}.jpg`;
   const img = document.getElementById("classroom-image");
   img.src = path;
-  img.onerror = () => img.src = "images/default.jpg";
-  img.onload = () => console.log("圖片加載成功：", path);
 
-  img.onclick = () => openModal(path);
+  img.onerror = () => img.src = "img/default.jpg";
+  img.onclick = () => openModal(img.src);
 
   document.getElementById("result").style.display = "block";
 
-  // 傳送資料到 ESP32
+  // 傳送到 ESP32
   fetch(`http://192.168.50.232/rotate?classroom=${encodeURIComponent(classroom)}`)
     .then(res => res.text())
     .then(msg => console.log("ESP32 回應：", msg))

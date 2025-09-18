@@ -147,7 +147,6 @@ void handleRotate() {
   server.send(200, "text/plain", "旋轉成功到 " + classroom);
   Serial.println("✅ 指向已更新至 " + classroom);
   tone(BUZZER_PIN, 1000, 200); // 發出 1000Hz 音調，200ms
-
 }
   // 解碼 URL 字串
 String urlDecode(const String& input) {
