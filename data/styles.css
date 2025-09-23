@@ -8,26 +8,10 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-}
-/* 只讓非首頁的 .page 佔滿視窗剩餘高度，內容不足時垂直置中 */
-.page:not(#page-main) {
-  min-height: calc(100vh - 160px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;   /* 垂直置中 */
-  align-items: center;       /* 水平置中 */
+    justify-content: center;   /* 水平置中 */
+    min-height: 100vh;         /* 高度撐滿整個視窗 */
 }
 
-
-/* 讓卡片/區塊水平也保持置中 */
-.page:not(#page-main) > .card-grid,
-.page:not(#page-main) > .foodmap-container,
-.page:not(#page-main) > .weather-container,
-.page:not(#page-main) > #classroom-container,
-.page:not(#page-main) > .news-container {
-  margin-left: auto;
-  margin-right: auto;
-}
 
 /* 時間與日期 */
 /* 時間與日期容器 */
