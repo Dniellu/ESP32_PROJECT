@@ -7,8 +7,8 @@
 #include <LedControl.h>
 
 // MAX7219 + 1088AS
-#define DIN_PIN 23   // ESP32 MOSI
-#define CLK_PIN 18   // ESP32 SCK
+#define DIN_PIN 22   // ESP32 MOSI
+#define CLK_PIN 21   // ESP32 SCK
 #define CS_PIN  15   // 自訂 CS 腳位
 
 LedControl lc = LedControl(DIN_PIN, CLK_PIN, CS_PIN, 1); // 1 = 控制 1 顆 MAX7219
