@@ -115,6 +115,19 @@ function updateClassrooms() {
 }
 
 function showImage() {
+  // ▶ 播放音效（來自 index.html 的 <audio>）
+  const snd = document.getElementById("cameraSound");
+  if (snd) {
+    try {
+      // 如果連點，回到 0 讓每次都能完整播放
+      snd.currentTime = 0;
+      snd.volume = 0.7; // 想更大或更小可調 0~1
+      snd.play();
+    } catch (e) {
+      console.warn("音效播放被瀏覽器阻擋或檔案有問題：", e);
+    }
+  }
+
   const classroom = document.getElementById("classroom").value;
   if (!classroom) return alert("請選擇完整資訊");
 
