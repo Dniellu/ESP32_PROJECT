@@ -17,13 +17,12 @@ setInterval(updateTime, 1000);
 updateTime();
 
 // 頁面切換
-function showPage(pageId) {
-  document.querySelectorAll(".page").forEach(p => p.style.display = "none");
-  document.getElementById(pageId).style.display = "block";
-
-  if (pageId === "page-foodmap") {
-    showFoodMap();
-  }
+function showPage(pageId){
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.remove("is-active");
+    p.style.display = "";          // 清掉舊的 inline style
+  });
+  document.getElementById(pageId).classList.add("is-active");
 }
 
 // 假的教室導引功能
