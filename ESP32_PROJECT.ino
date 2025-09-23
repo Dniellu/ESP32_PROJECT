@@ -4,6 +4,26 @@
 #include <SPI.h>
 #include <AccelStepper.h>
 #include "classroom.h" // 教室角度表，需包含 unordered_map<String, int> classroomAngles
+#include <LedControl.h>
+
+// MAX7219 + 1088AS
+#define DIN_PIN 23   // ESP32 MOSI
+#define CLK_PIN 18   // ESP32 SCK
+#define CS_PIN  15   // 自訂 CS 腳位
+
+LedControl lc = LedControl(DIN_PIN, CLK_PIN, CS_PIN, 1); // 1 = 控制 1 顆 MAX7219
+
+// 向右箭頭點陣
+byte arrow_right[8] = {
+  B00011000,
+  B00011100,
+  B11111111,
+  B11111111,
+  B11111111,
+  B00011100,
+  B00011000,
+  B00010000
+};
 
 // WiFi 設定
 const char* ssid = "310_Lab";
@@ -40,6 +60,17 @@ void setup() {
   Serial.begin(115200);
 
   pinMode(BUZZER_PIN, OUTPUT);
+
+
+    // 初始化 MAX7219
+  lc.shutdown(0, false);  // 啟用顯示
+  lc.setIntensity(0, 8);  // 亮度 (0~15)
+  lc.clearDisplay(0);     // 清螢幕
+
+  // 預設顯示箭頭
+  for (int row = 0; row < 8; row++) {
+    lc.setRow(0, row, arrow_right[row]);
+  }
 
   // WiFi 連線
   WiFi.begin(ssid, password);
@@ -156,6 +187,11 @@ void handleRotate() {
 
   tone(BUZZER_PIN, 1000, 200); // 發出 1000Hz 音調，200ms
 }
+
+  // 顯示箭頭
+  for (int row = 0; row < 8; row++) {
+    lc.setRow(0, row, arrow_right[row]);
+  }
 
 // 解碼 URL 字串
 String urlDecode(const String& input) {
