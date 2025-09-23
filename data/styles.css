@@ -1,589 +1,583 @@
-/* === 基本樣式設定 === */
+/* 基本設定 */
 body {
-    font-family: 'Arial', sans-serif; /* 字型 */
-    text-align: center;               /* 置中對齊文字 */
-    background-color: #f0f8ff;       /* 淺藍背景 */
-    margin: 0;                       /* 取消預設外距 */
-    padding: 0;                      /* 取消預設內距 */
-    background: url('images/background.png') no-repeat center center fixed;
-    background-size: cover;
+    font-family: "Microsoft JhengHei", sans-serif;
+    text-align: center;
+    background-color: #fbf9f7;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-h1 {
-    margin-top: 40px;                /* 頂部外距 */
-    font-size: 32px;                 /* 字型大小 */
-    font-weight: 600;                /* 字重 */
-    color: #2c3e50;                 /* 深藍文字色 */
+/* 時間與日期 */
+/* 時間與日期容器 */
+.time-container {
+    margin-top: 80px;  /* 原本 20px → 增加距離，往下移動 */
 }
 
-/* 按鈕容器，用來置中按鈕並做外距 */
-.button-container {
+/* 時間數字 */
+.time {
+    font-size: 72px;   /* 原本 48px → 放大數字 */
+    font-weight: bold;
+    color: #a1784d;
+}
+
+/* 日期文字，如果也想跟著放大，可以調整 */
+.date {
+    font-size: 20px;   /* 原本 16px → 放大 */
+    color: #a1784d;
+    margin-top: 6px;   /* 調整日期與時間的間距 */
+}
+
+
+/* 主畫面排列 */
+.button-row {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 120px;
+    margin-top: 70px; /* 原本沒有這行或數值較小 → 調整往下 */
+}
+
+
+/* 其他功能排列 */
+.button-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 30px;
+    padding: 0 40px;
+    justify-items: center;
+    align-items: center;
+}
+
+/* 按鈕樣式 */
+.circle-btn {
+    background: none;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+}
+
+.icon-circle {
+    width: 180px;   /* 原本 140px → 放大 */
+    height: 180px;  /* 原本 140px → 放大 */
+    background-color: #f4e7dc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    margin-bottom: 16px; /* 原本 12px → 放大一點間距 */
+    transition: transform 0.2s;
+}
+
+.icon-circle img {
+    width: 150px;   /* 原本 120px → 放大 */
+    height: 150px;  /* 原本 120px → 放大 */
+    display: block;
+}
+
+.icon-circle.small {
+  width: 40px;   /* 原本 32px → 微調放大 */
+  height: 40px;  /* 原本 32px → 微調放大 */
+  background-color: #f7ede6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;  
+  justify-content: center; 
+}
+
+.circle-btn:hover .icon-circle {
+    transform: scale(1.1); /* 原本 1.05 → 滑過時更明顯 */
+}
+
+.circle-btn span {
+    font-size: 22px;  /* 原本 18px → 放大文字 */
+    font-weight: bold;
+    color: #a1784d;
+}
+
+.classroom-container {
+  display: flex;
+  flex-direction: row;          /* 橫向排列：左邊選單 + 右邊圖片 */
+  justify-content: flex-start;  /* 從左開始排 */
+  align-items: flex-start;
+  height: 100vh;
+  padding: 2%;
+  box-sizing: border-box;
+  background-color: #faf8f5;
+  gap: 20px;                    /* 左右區塊間距 */
+}
+
+.left-panel {
+  flex: 0 0 350px;              /* 固定左邊寬度（350px，可自行調整） */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f2e6dc;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 20px;   /* 往下移動 */
+  margin-left: 90px;  /* 往右移動 */
+}
+
+.right-panel { 
+  flex: 1;                      /* 右邊佔滿剩餘空間 */
+  background: linear-gradient(145deg, #f3e6da, #e9dacc);
+  border-radius: 20px;
   display: flex;
   justify-content: center;
-  gap: 50px;
-  margin-top: 30px;
-  flex-wrap: wrap;
+  align-items: center;
+  box-shadow: 4px 4px 15px rgba(0,0,0,0.08), -4px -4px 15px rgba(255,255,255,0.6);
+  transition: transform 0.2s;
+  padding: 20px;
+  overflow: hidden;             /* 防止圖片超出 */
 }
 
-.button-container button {
-  width: 250px;
-  height: 250px;
-  font-size: 36px;
-  font-weight: bold;
+.right-panel img {
+  max-width: 100%;              /* 限制圖片寬度不超過容器 */
+  max-height: 100%;             /* 限制圖片高度不超過容器 */
+  object-fit: contain;          /* 保持比例縮放 */
+}
+
+
+
+/* 新增的這段 ↓↓↓ */
+.left-panel select,
+.left-panel label,
+.left-panel button {
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 1em;
+  text-align: center;
+  align-self: center;
+}
+
+.left-panel select {
+  text-align-last: center;
+}
+
+.left-panel:hover {
+  transform: translateY(-2px);
+} 
+
+.select-label {
+  font-weight: bold;          /* 跟天氣選單一致 */
+  color: #6b4e36;             /* 可以用稍深咖啡色 */
+  margin-bottom: 8px;
+  display: block;
+}
+
+
+/* 選單下拉框 */
+.select-input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 20px;       /* 跟天氣選單一致 */
   border: none;
-  border-radius: 40px;
-  background: linear-gradient(to bottom, #cce6ff, #3399ff);
-  color: #000;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  background: #d2bba0;        /* 跟天氣選單一致 */
+  color: #fff;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+.select-input:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(181,157,136,0.5);
+}
+
+
+/* 搜尋按鈕 */
+.search-btn {
+  width: 100%;
+  border-radius: 20px;
+  background: #d2bba0;        /* 跟天氣查詢按鈕同色 */
+  color: #fff;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.search-btn:hover {
+  background-color: #c2a68f;   /* 懸浮效果 */
+}
+
+
+.search-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+
+.classroom-image {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 15px;
+  cursor: zoom-in;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.classroom-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* 上一頁按鈕 */
+.back-btn-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.back-btn {
+  background-color: #b59d88;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-btn:hover {
+  background-color: #a3846f;
+  transform: scale(1.02); 
+}
+
+.back-btn .icon-circle.small {
+  width: 28px; 
+  height: 28px;
+  background-color: #f7ede6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.back-btn .icon-circle.small img {
+  width: 20px;
+  height: 20px;
+  display: block;
+  transform: translateY(-2px); 
+}
+
+.back-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.8);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  max-width: 100vw;
+  max-height: 100vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  color: white;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* 天氣查詢容器 */
+.weather-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 20px;
+}
+
+.weather-left {
+  flex: 1;
+  background: #f2e6dc;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.weather-left label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.weather-left select, .query-btn {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 20px;
+  border: none;
+  background: #d2bba0;
+  color: #fff;
+  font-size: 16px;
+}
+
+.weather-right {
+  flex: 2;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.weather-card {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* 美食地圖頁面容器 */
+.foodmap-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
+
+/* --- 卡片容器 --- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 20px;
+  justify-items: center; 
+}
+
+/* 統一卡片樣式（套用美食地圖風格） */
+.card {
+  background-color: #f2e6dc; /* 淺咖啡色 */
+  border-radius: 20px;
+  padding: 15px;
+  text-align: center;
+  font-family: "Microsoft JhengHei", sans-serif;
+  width: 220px; /* 和美食卡片同寬 */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
 }
 
-.button-container button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+/* 卡片 hover 效果 */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-
-/* 按鈕基本樣式 */
-button {
-    display: inline-block;
-    width: 220px;
-    margin: 12px auto;
-    padding: 12px 20px;
-    font-size: 18px;
-    border: none;
-    background-color: #3498db;     /* 按鈕藍色 */
-    color: white;
-    border-radius: 10px;            /* 圓角 */
-    cursor: pointer;
-    transition: all 0.3s ease;      /* 動畫過渡 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 陰影 */
+/* 卡片圖片 */
+.card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 10px;
 }
 
-/* 按鈕滑鼠移入效果 */
-button:hover {
-    background-color: #2980b9;     /* 深藍 */
-    transform: translateY(-4px);    /* 往上移動 */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 陰影加深 */
-}
-
-/* 按鈕點擊時效果 */
-button:active {
-    transform: translateY(0);       /* 回到原位 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* 表單標籤樣式 */
-label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #2c3e50;
-    display: block;               /* 換行顯示 */
-    margin-top: 10px;
-}
-
-/* 下拉選單樣式 */
-select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 8px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    background-color: #f8f9fa;    /* 淺灰背景 */
-    cursor: pointer;
-}
-
-/* === 語言選單區域 === */
-.language-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: rgba(0, 0, 0, 0.7); /* 半透明黑色背景 */
-    padding: 10px;
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#language-selector {
-    padding: 8px;
-    font-size: 16px;
-    background-color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    outline: none;
-    transition: all 0.3s ease-in-out;
-}
-
-#language-selector:hover {
-    background-color: #f0f0f0;
-}
-
-/* === 小助手 AI 區域 === */
-#ai-assistant {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 9999;
-}
-
-/* 小助手按鈕樣式 */
-.assistant-button button {
-    padding: 12px 20px;
-    font-size: 16px;
-    background-color: #4CAF50; /* 綠色 */
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
-
-.assistant-button button:hover {
-    background-color: #45a049;
-    transform: scale(1.1);
-}
-
-/* 小助手選單 */
-#menu {
-    display: none;               /* 預設隱藏 */
-    position: fixed;
-    bottom: 100px;
-    left: 20px;
-    background-color: #ffffff;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 280px;
-    transition: all 0.3s ease;
-}
-
-/* 小助手選單裡的按鈕 */
-.assistant-menu button {
-    display: block;
-    margin: 8px 0;
-    padding: 12px;
-    font-size: 14px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: left;
-    width: 100%;
-    box-sizing: border-box;
-    transition: background-color 0.3s ease;
-}
-
-.assistant-menu button:hover {
-    background-color: #45a049;
-}
-
-/* 小助手回答區 */
-.assistant-answer {
-    display: none;               /* 預設隱藏 */
-    position: fixed;
-    bottom: 100px;
-    left: 20px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 280px;
-    text-align: center;
-}
-
-/* 小助手回答區關閉按鈕 */
-.assistant-answer button {
-    padding: 12px;
-    background-color: #f44336;   /* 紅色 */
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s ease;
-}
-
-.assistant-answer button:hover {
-    background-color: #e53935;
-}
-
-/* === YouBike / 公用輸出區塊 === */
-#output {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;                  /* 區塊間距 */
-    max-width: 400px;
-    margin: 20px auto;          /* 上下外距與置中 */
-    padding: 10px;
-    font-size: 20px;
-    color: #34495e;
-    font-weight: 500;
-    line-height: 1.5;
-}
-
-/* 單一站牌卡片 */
-.station-card {
-    background: #e3f2fd;        /* 淺藍背景 */
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    border-left: 6px solid #2196F3; /* 藍色左邊框 */
-    margin: 10px 0;
-}
-
-.station-card h3 {
-    margin: 0 0 10px 0;
-    color: #007bff;             /* 藍色標題 */
-}
-
-.station-card p {
-    margin: 5px 0;
-}
-
-/* === 天氣查詢雙欄排版 === */
-.weather-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px;                  /* 兩欄間距 */
-    margin-top: 50px;
-    flex-wrap: wrap;            /* 可換行 */
-    padding: 20px;
-}
-
-/* 天氣輸入與顯示框樣式 */
-#weatherBox, #weatherDisplay {
-    margin-left: 80px;
-    margin-bottom: 40px;
-    flex: 1;
-    max-width: 400px;
-    min-width: 300px;
-    padding: 20px;
-    border-radius: 12px;
-    background: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border: 2px solid #3498db;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 320px;
-}
-
-/* 天氣顯示框改變邊框顏色 */
-#weatherDisplay {
-    border-color: #2ecc71; /* 綠色 */
-}
-
-/* 天氣輸入框的按鈕 */
-#weatherBox button {
-    width: 90%;
-    margin: 10px 0;
-}
-
-/* === 響應式設計，螢幕寬度小於768px時 */
-@media (max-width: 768px) {
-    .weather-container {
-        flex-direction: column;  /* 改為上下排列 */
-        align-items: center;
-    }
-    #weatherBox, #weatherDisplay {
-        width: 90%;              /* 寬度改為90% */
-        text-align: left;        /* 左對齊 */
-        margin-bottom: 10px;
-        margin-left: 0;          /* 取消左邊距 */
-    }
-}
-
-/* === 美食轉盤樣式 === */
-.food-wheel-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    width: 350px;
-    margin: 20px auto;
-    position: relative;
-}
-
-.food-wheel-container canvas {
-    border: 2px solid #3498db;
-    border-radius: 50%;
-    margin-bottom: 15px;
-}
-
-/* 轉盤結果文字 */
-#resultText {
-    font-size: 18px;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-top: 10px;
-}
-
-/* 轉盤按鈕 */
-#spinButton {
-    background-color: #e74c3c; /* 紅色 */
-}
-
-#spinButton:hover {
-    background-color: #c0392b;
-}
-
-.food-wheel-container button {
-    width: 120px;
-    margin: 8px;
-}
-
-
-/* === 公車站牌樣式 === */
-#dm-container {
-    margin-top: 30px;
-}
-
-#dm-image {
-    max-width: 90%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-#time-display {
-    margin: 20px 0;
-    font-size: 28px;
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-/* === 螢幕保護程式 (一般模式) === */
-#screensaver {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.slide {
-    max-width: 90%;
-    max-height: 90%;
-    display: none;
-}
-
-/* === 緊急模式 === */
-#emergencyScreen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: red;
-    z-index: 99999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.emergency-slide {
-    max-width: 90%;
-    max-height: 90%;
-    display: none;
-}
-
-#sosButton {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 1rem 2rem;
-    background-color: red;
-    color: white;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 10px;
-    z-index: 100000;
-    cursor: pointer;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  padding-top: 60px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.8);
-}
-
-.modal-content {
-  margin: auto;
-  display: block;
-  max-width: 90%;
-  max-height: 80%;
-  border: 4px solid white;
-  box-shadow: 0 0 10px black;
-}
-
-.modal-close {
-  position: absolute;
-  top: 20px;
-  right: 35px;
-  color: white;
-  font-size: 40px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.classroom-guide-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1em;
-}
-
-.classroom-guide {
-  flex: 1 1 300px;
-  max-width: 300px;
-}
-
-#result {
-  flex: 2 1 500px;
-  display: none;
-}
-
-#classroom-image {
-  max-width: 100%;
-  border: 1px solid #ccc;
-  cursor: zoom-in;
-}
-
-/* Modal 彈出視窗 */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  padding-top: 60px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.8);
-}
-
-.modal-content {
-  margin: auto;
-  display: block;
-  max-width: 90%;
-  max-height: 80%;
-  border: 4px solid white;
-  box-shadow: 0 0 10px black;
-}
-
-.modal-close {
-  position: absolute;
-  top: 20px;
-  right: 35px;
-  color: white;
-  font-size: 40px;
-  font-weight: bold;
-  cursor: pointer;
-}
-/* 放大時間字體 */
-.large-clock #time {
-  font-size: 80px;
-  font-weight: bold;
-  color: white;
-  text-align: center;
-  display: block;
-  margin-top: 20px;
-}
-
-/* 按鈕容器改成 flex 排列 */
-.button-container {
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  margin-top: 40px;
-}
-
-.custom-btn {
-  display: block;
-  width: 100%;
-  max-width: 300px;
-  margin: 10px auto;
-  padding: 15px 20px;
+/* 卡片標題 */
+.card h3 {
+  margin: 10px 0;
   font-size: 18px;
   font-weight: bold;
-  background-color: #4CAF50;
+  color: #6b4e36;
+}
+
+/* 地址、距離 */
+.card p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* 導航按鈕 */
+.card button {
+  background-color: #b59d88;
   color: white;
   border: none;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 8px 16px;
+  border-radius: 25px;
   cursor: pointer;
-  transition: transform 0.1s ease, background-color 0.3s ease;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s;
 }
 
-.custom-btn:hover {
-  background-color: #45a049;
-  transform: scale(1.02);
+.card button:hover {
+  background-color: #9c8672;
 }
 
-.custom-btn:active {
-  transform: scale(0.98);
+/* --- 統一按鈕風格 --- */
+button {
+  font-family: "Microsoft JhengHei", sans-serif;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
-.fullscreen-box {
+
+/* --- 開始導航按鈕 --- */
+button.start-btn {
+  background-color: #b5927c;   
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-size: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+button.start-btn:hover {
+  background-color: #a67c64;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+button.start-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.news-container {
+  background-color: #f2e6dc; /* 與教室頁面一致的淺咖啡色 */
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+.news-container h2 {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.news-list {
+  list-style-type: disc;
+  padding-left: 25px;
+}
+
+.news-list li {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.food-wheel-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fdf6e3; /* 與其他頁面配色一致的淺色 */
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  text-align: center;
+  z-index: 9999;
+}
+
+#foodWheelCanvas {
+  width: 300px;
+  height: 300px;
+  margin-bottom: 20px;
+}
+
+#spinButton, #closeWheelButton {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #FF5733;
+  color: white;
+  font-weight: bold;
+}
+
+#resultText {
+  margin-top: 15px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+.preview-img {
+  width: 100%;      /* 滿版寬度 */
+  height: auto;     /* 自動調整高度保持比例 */
+  max-height: 80vh; /* 最多不超過螢幕高度 80% */
+  object-fit: contain;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.show-image-btn {
+  font-size: 20px;
+  padding: 14px 28px;
+  background-color: #b59d88;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.show-image-btn:hover {
+  background-color: #a38b76;
+}
+
+#screensaver {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: white;
-  overflow-y: auto;
-  padding: 20px;
-  z-index: 999; /* 確保在最上層 */
+  background: black;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
-
-.fullscreen-box h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
+.slide {
+  display: none; /* 預設隱藏每張投影片 */
 }
-
-.station-card {
-  background: #f0f0f0;
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.navigate-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.navigate-btn:hover {
-  background-color: #0056b3;
-}
-
-

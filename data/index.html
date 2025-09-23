@@ -1,222 +1,185 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="title">智慧路牌</title>
-  <!-- 引入 CSS 與 manifest -->
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="manifest" href="manifest.json" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>智慧面板</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
-<body id="mode-controller" data-mode="guide">
-  <div id="guide-mode">
-
-    <!-- 頁首：語言切換 -->
-    <header>
-      <div class="language-container">
-        <select id="language-selector">
-          <option value="zh">中文</option>
-          <option value="en">English</option>
-        </select>
-      </div>
-    </header>
-
-    <!-- 顯示目前時間 -->
-    <div id="time-display" class="large-clock">
-  <span id="time">--:--:--</span>
+<body>
+  <!-- 時間與日期 -->
+  <div id="page-main" class="page">
+    <!-- ✅ 時間與日期：只在主畫面顯示 -->
+    <div class="time-container">
+      <div id="time" class="time">00:00</div>
+      <div id="date" class="date">2025年1月1日, 星期三</div>
     </div>
 
-    <!-- 首頁按鈕 -->
-    <div id="main-buttons" class="button-container">
-      <button onclick="openClassroomGuide()">🏫 教室導引</button>
-      <button onclick="showOtherFunctions()">🔧 其他功能</button>
+    <div class="button-row">
+      <button class="circle-btn" onclick="showPage('page-classroom')">
+        <div class="icon-circle">
+          <img src="img/classroom-icon.png" alt="教室導引">
+        </div>
+        <span>教室導引</span>
+      </button>
+      <button class="circle-btn" onclick="showPage('page-other')">
+        <div class="icon-circle">
+          <img src="img/more-icon.png" alt="其他功能">
+        </div>
+        <span>其他功能</span>
+      </button>
     </div>
+  </div>
+  <!-- 閒置畫面：投影片播放區 -->
+  <div id="screensaver" style="display:none;">
+    <div class="slideshow">
+      <img src="img/防災避難流程.jpg" class="slide" />
+      <img src="img/逃生避難圖.jpg" class="slide" />
+      <img src="img/師大連結學校.jpg" class="slide" />
+      <img src="img/師大百年.jpg" class="slide" />
+      <img src="img/消防安全.jpg" class="slide" />
+    </div>
+  </div>
 
-   <!-- 第二層按鈕區（其他功能） -->
-<div id="secondary-buttons" class="button-container"style="display:none;">
-  <button onclick="findFood()">🍜 美食地圖</button>
-  <button onclick="showCampusMenu()">🏫 校區介紹</button>
-  <button onclick="findNearestBUS()">🚏 公車站牌位置</button>
-  <button onclick="findNearestMRT()">🚇 捷運站位置</button>
-  <button onclick="findYoubike()">🚲 YouBike 站點查詢</button>
-  <button id="weather" onclick="openWeather()" data-i18n="weather">🌤 天氣查詢</button>
-</div>
+  <!-- 教室導引頁面 -->
+  <div id="page-classroom" class="page" style="display:none;">
+    <div class="classroom-guide-container" id="classroom-container">
+      <!-- JS 動態載入內容 -->
+    </div>
+    <div class="back-btn-container">
+      <button class="back-btn" onclick="showPage('page-main')">
+        上一頁
+      </button>
+    </div>
+  </div>
 
-<div id="back-button" style="text-align: right; margin: 10px; display: none;">
-  <button onclick="goBack()">⬅️ 上一頁</button>
-</div>
-
-   <!-- 第三層按鈕區（校區介紹） -->
-<div id="campus-buttons" class="button-container"style="display:none;">
-  <button onclick="showCampusInfo('和平校區')">🏫 和平校區</button>
-  <button onclick="showCampusInfo('圖書館校區')">📚 圖書館校區</button>
-  <button onclick="showCampusInfo('公館校區')">🏢 公館校區</button>
-  <button onclick="showCampusInfo('林口校區')">🌳 林口校區</button>
-</div>
-
-<div id="back-button" style="text-align: right; margin: 10px; display: none;">
-  <button onclick="goBack()">⬅️ 上一頁</button>
-</div>
-
-
-   <!-- 第三層按鈕區（天氣查詢） -->
+  <!-- 天氣查詢頁面 -->
+  <div id="page-weather" class="page" style="display:none;">
     <div class="weather-container">
-      <div id="weatherBox" class="weather-form" style="display: none;">
-        <h3>🔍 天氣查詢</h3>
-        <label for="city">選擇縣市:</label>
+      <div class="weather-left">
+        <label for="city">選擇縣市</label>
         <select id="city">
           <option value="">請選擇縣市</option>
         </select>
-        <button id="submitWeather">📡 查詢天氣</button>
-        <button id="closeWeather" class="close-btn">❌ 關閉查詢</button>
+        <button id="submitWeather" class="query-btn">查詢天氣</button>
       </div>
-      <div id="output" class="weather-output"></div>
-    </div>
-
-   <!-- 第二層按鈕區（教室導引） -->
-    <div id="classroomBox" class="container" style="display: none;">
-      <select id="area" onchange="updateClassrooms()">
-        <option value="">請選擇區域</option>
-        <option value="cheng">誠</option>
-        <option value="zheng">正</option>
-        <option value="qin">勤</option>
-        <option value="pu">樸</option>
-      </select>
-      <select id="floor" onchange="updateClassrooms()">
-        <option value="">請選擇樓層</option>
-      </select>
-      <select id="classroom">
-        <option value="">請選擇教室</option>
-      </select>
-      <button onclick="showImage()">顯示圖片</button>
-
-      <div id="weatherDisplay">
-        <div id="result" style="display: none;">
-          <img id="classroom-image" src="" alt="教室圖片" />
-        </div>
+      <div class="weather-right" id="output">
+        <p>請先選擇縣市並查詢天氣</p>
       </div>
-
-      <button onclick="goHome()">⬅️ 返回首頁</button>
     </div>
-
-    <!-- 小助手按鈕 -->
-    <div id="ai-assistant" class="assistant-button">
-      <button onclick="showMenu()">小助手</button>
-    </div>
-
-    <!-- 小助手功能選單 -->
-    <div id="menu" class="assistant-menu">
-      <button onclick="showAnswer('weather')">🌦 如何查詢天氣？</button>
-      <button onclick="showAnswer('youbike')">🚴‍♀️ 如何查詢附近的 YouBike 站點？</button>
-      <button onclick="showAnswer('map')">🧭 如何使用地圖導航？</button>
-      <button onclick="showAnswer('services')">🔧 其他服務有哪些功能？</button>
-      <button onclick="showAnswer('foodWheel')">🍽 美食轉盤要怎麼使用？</button>
-      <button onclick="showAnswer('sosMode')">🚨 如何開啟緊急模式？</button>
-      <button onclick="showAnswer('howToStart')">🖱 首次使用該從哪裡開始？</button>
-      <button onclick="showAnswer('returnHome')">🏠 使用後如何返回主畫面？</button>
-      <button onclick="showAnswer('soundOff')">🔇 為什麼沒有聽到警報聲？</button>
-      <button onclick="showAnswer('foodWheelCriteria')">🍴 美食轉盤是如何決定推薦餐廳的？</button>  
-      <button onclick="closeMenu()">❌ 關閉選單</button>    
-    </div>
-
-    <!-- 小助手答覆區 -->
-    <div id="answer" class="assistant-answer">
-      <p id="answer-text"></p>
-      <button onclick="closeAnswer()">關閉</button>
-    </div>
-
-    <!-- 引入 JavaScript -->
-    <script src="wheather.js"></script>
-    <script src="ad.js"></script>
-    <script src="otherfunction.js"></script>
-    <script src="map.js"></script>
-    <script src="classroom.js"></script>
-    <script src="utils.js"></script>
-
-    <script>
-      // 返回首頁功能
-      function goHome() {
-        document.getElementById("dm-container").style.display = "block";
-        document.getElementById("output").innerHTML = "";
-        document.getElementById("weatherBox").style.display = "none";
-        document.getElementById("classroomBox").style.display = "none";
-        document.getElementById("result").style.display = "none";
-      }
-
-      // 顯示天氣查詢區塊
-      function openWeather() {
-        closeAllFeatureBoxes();
-        document.getElementById("dm-container").style.display = "none";
-        document.getElementById("weatherBox").style.display = "block";
-      }
-
-      // 註冊 PWA 的 Service Worker
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("service-worker.js")
-          .then(() => console.log("Service Worker 註冊成功"))
-          .catch((error) => console.log("Service Worker 註冊失敗:", error));
-      }
-
-      // 語言載入
-      async function loadLanguage(lang) {
-        const res = await fetch('languages.json');
-        const data = await res.json();
-        const translations = data[lang];
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-          const key = el.getAttribute('data-i18n');
-          if (translations[key]) {
-            el.textContent = translations[key];
-          }
-        });
-      }
-
-      document.getElementById('language-selector').addEventListener('change', e => {
-        loadLanguage(e.target.value);
-      });
-
-      // 預設語言為中文
-      loadLanguage('zh');
-
-      // 教室導引切換
-      function toggleClassroomGuide() {
-        const box = document.getElementById("classroomBox");
-        box.style.display = box.style.display === "none" ? "block" : "none";
-      }
-
-      // 即時更新時間
-      function updateTime() {
-        const now = new Date(); 
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        document.getElementById("time").textContent = `${hours}:${minutes}:${seconds}`;
-      }
-      setInterval(updateTime, 1000);
-      updateTime();
-    </script>
-
-    <!-- 動態服務區容器 -->
-    <div id="serviceContainer"></div>
-
-    <!-- 閒置畫面：投影片播放區 -->
-    <div id="screensaver" style="display: none;">
-      <div class="slideshow">   
-        <img src="images/防災避難流程.jpg" class="slide" />
-        <img src="images/逃生避難圖.jpg" class="slide" />
-        <img src="images/師大連結學校.jpg" class="slide" />
-        <img src="images/師大百年.jpg" class="slide" />
-        <img src="images/消防安全.jpg" class="slide" />
-      </div>
+    <div class="back-btn-container">
+      <button class="back-btn" onclick="showPage('page-other')">
+        上一頁
+      </button>
     </div>
   </div>
 
-  <!-- 圖片放大顯示 Modal -->
-  <div id="imageModal" class="modal" onclick="closeModal()" style="display:none;">
-    <span class="modal-close">&times;</span>
-    <img class="modal-content" id="modalImage">
+ <!-- 捷運站頁面 -->
+<div id="page-mrt" class="page" style="display:none;">
+  <div id="mrt-output" class="card-grid"></div>
+  <div class="back-btn-container">
+    <button class="back-btn" onclick="showPage('page-other')">
+        上一頁
+    </button>
   </div>
-<div id="fullscreen-box" class="fullscreen-box" style="display: none;"></div>
+</div>
+
+<!-- YouBike 頁面 -->
+<div id="page-youbike" class="page" style="display:none;">
+  <div id="youbike-output" class="card-grid"></div>
+  <div class="back-btn-container">
+    <button class="back-btn" onclick="showPage('page-other')">
+        上一頁
+    </button>
+  </div>
+</div>
+
+<!-- 公車站牌頁面 -->
+<div id="page-bus" class="page" style="display:none;">
+  <div id="bus-output" class="card-grid"></div>
+  <div class="back-btn-container">
+    <button class="back-btn" onclick="showPage('page-other')">
+        上一頁
+    </button>
+  </div>
+</div>
+
+
+  <!-- 美食地圖頁面 -->
+  <div id="page-foodmap" class="page" style="display:none;">
+    <div class="foodmap-container">
+      <p>📍 載入中...</p>
+    </div>
+    <div class="back-btn-container">
+      <button class="back-btn" onclick="showPage('page-other')">
+        上一頁
+      </button>
+    </div>
+  </div>
+
+  <!-- 其他功能頁面 -->
+  <div id="page-other" class="page" style="display:none;">
+    <div class="button-grid">
+      <button class="circle-btn" onclick="showPage('page-weather')">
+        <div class="icon-circle"><img src="img/weather icon.png" alt="天氣查詢"></div><span>天氣查詢</span>
+      </button>
+      <button class="circle-btn" onclick="showPage('page-news')">
+        <div class="icon-circle"><img src="img/news icon.png" alt="最新資訊"></div>
+        <span>最新資訊</span>
+        </button>
+      <button class="circle-btn" onclick="showPage('page-mrt'); findNearestMRT();">
+        <div class="icon-circle"><img src="img/MRT icon.png" alt="捷運站"></div><span>捷運站</span>
+      </button>
+      <button class="circle-btn" onclick="showPage('page-youbike'); findYoubike();">
+        <div class="icon-circle"><img src="img/youbike icon.png" alt="Youbike"></div><span>Youbike</span>
+      </button>
+      <button class="circle-btn" onclick="showPage('page-bus'); findNearestBUS();">
+        <div class="icon-circle"><img src="img/bus icon.png" alt="公車站牌"></div><span>公車站牌</span>
+      </button>
+      <button class="circle-btn" onclick="showPage('page-foodmap'); showFoodMap();">
+        <div class="icon-circle"><img src="img/food icon.png" alt="美食地圖"></div><span>美食地圖</span>
+      </button>
+      <button class="circle-btn" onclick="openFoodWheel()">
+        <div class="icon-circle"><img src="img/Food turntable icon.png" alt="美食轉盤"></div>
+        <span>美食轉盤</span>
+        </button>
+    </div>
+    <div class="back-btn-container">
+      <button class="back-btn" onclick="showPage('page-main')">
+        上一頁
+      </button>
+    </div>
+  </div>
+
+  <!-- 最新資訊頁面 -->
+<div id="page-news" class="page" style="display:none;">
+  <div class="news-container">
+    <h2>📢 最新資訊</h2>
+    <ul class="news-list">
+      <li>2025/08/18 校園停車場調整公告</li>
+      <li>2025/08/17 教室維修通知：部分教室暫停使用</li>
+      <li>2025/08/15 學生活動中心開放時間更新</li>
+      <li>2025/08/10 校園免費講座：半導體技術分享</li>
+      <li>2025/08/01 健康中心疫苗接種公告</li>
+      <!-- 可依需求新增更多資訊 -->
+    </ul>
+  </div>
+  <div class="back-btn-container">
+    <button class="back-btn" onclick="showPage('page-other')">
+        上一頁
+    </button>
+  </div>
+</div>
+
+  <!-- JS 引入 -->
+  <script src="script.js"></script>
+  <script src="weather.js"></script>
+  <script src="foodmap.js"></script>
+  <script src="classroom.js"></script>
+  <script src="bus.js"></script>
+  <script src="MRT.js"></script>
+  <script src="Youbike.js"></script>
+  <script src="turntable.js"></script>
+  <script src="ad.js"></script>
 </body>
 </html>
