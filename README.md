@@ -8,6 +8,7 @@
 完整報告 PDF：[成果報告書.pdf](https://github.com/Dniellu/ESP32_PROJECT/blob/main/115%E7%B4%9A%E5%A4%A7%E5%9B%9B%E5%AD%B8%E7%94%9F%E5%B0%88%E9%A1%8C%E8%A3%BD%E4%BD%9C%E6%88%90%E6%9E%9C%E5%B1%95%E6%9B%B8%E9%9D%A2%E8%B3%87%E6%96%99.pdf)  
 成果三折頁 : [三折頁](https://github.com/Dniellu/ESP32_PROJECT/blob/main/%E5%B0%88%E5%B1%95%E4%B8%89%E6%8A%98%E9%A0%81%20(1).pdf)  
 成果海報 : [海報](https://github.com/Dniellu/ESP32_PROJECT/blob/main/%E5%B0%88%E5%B1%95%E6%B5%B7%E5%A0%B1%20(1).pdf)  
+報告簡報 : [簡報](https://www.canva.com/design/DAG2ILi6TKI/KvQUlUSzOR9RuL-NUJ2ZrA/edit)
 
 ## 📌 專題背景
 
